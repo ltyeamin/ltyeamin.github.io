@@ -372,7 +372,7 @@
     <div class="post-body post-content">
         <p>在平常生活或工作中，我们经常需要传输文件，比如将电脑上下载的App传送到手机或另一台PC上、同事之间传输一些大型的文件。当我们遇到此类问题时，首先想到的就是使用QQ或者微信，更深一层，去网上搜索一些文件传输工具，如<a href="https://send-anywhere.com/" target="_blank" rel="noopener">Send Anywhere</a>，LZ当时在大学时候经常使用的是FTP、Samba服务。但是这些第三方要么都显得太麻烦（如下图），要么就是不安全，安全隐患主要在数据传输安全以及数据备份上体现，我们都需要将文件传输到第三方服务器上，再通过需要接收数据的电脑或手机进行下载。</p>
 <p>那么，有没有办法直接获取文件，而不通过这些繁琐的操作？在这里呢，LZ给大家推荐几种常见的文件共享方法。</p>
-<p><img src="http://q5j98c24z.bkt.clouddn.com/imgs/doc/20180618001/photo1.png" alt="麻烦的交互"></p>
+<p><img src="http://q788vcjor.bkt.clouddn.com/imgs/doc/20180618001/photo1.png" alt="麻烦的交互"></p>
 <h2 id="文件共享下载新姿势"><a href="#文件共享下载新姿势" class="headerlink" title="文件共享下载新姿势"></a>文件共享下载新姿势</h2><h3 id="最方便的Windows文件共享"><a href="#最方便的Windows文件共享" class="headerlink" title="最方便的Windows文件共享"></a>最方便的Windows文件共享</h3><p>LZ本人一年多没用过Windows电脑了,现在公司配置的是Mac Pro，家用的Lenovo Y430P已被改装为Deepin Linux,由于现在日常生活、工作都是在非Windows操作,所以这里就不演示了，等有机会会把详细教程列到这里。</p>
 <p><a href="https://jingyan.baidu.com/article/fec7a1e53efe621190b4e7ae.html" target="_blank" rel="noopener">Windows文件共享</a></p>
 <h3 id="最简单的Python命令共享"><a href="#最简单的Python命令共享" class="headerlink" title="最简单的Python命令共享"></a>最简单的Python命令共享</h3><p>大家都知道Python2与Python3不兼容,一般Linux和Mac OS X默认集成Python2,因为这些系统一些应用工具是Python2开发的，所以系统只能默认Python2。</p>
@@ -385,7 +385,7 @@
 </li>
 </ol>
 <p>​    我在我的Mac或Linux终端执行简单的上述任意两个命令后，启动一个HTTP服务器，打开浏览器输入<a href="http://127.0.0.1:8900或http://localhost:8900" target="_blank" rel="noopener">http://127.0.0.1:8900或http://localhost:8900</a>  后回出现下图文件共享的列表，若其他人想下载可以将局域网IP和端口号告知其他人即可下载。在这不仅仅可以下载，也可以预览常见文件，比如音频、视频、图片、PDF、文本文件。</p>
-<p><img src="http://q5j98c24z.bkt.clouddn.com/imgs/doc/20180618001/photo2.png" alt="共享列表预览"></p>
+<p><img src="http://q788vcjor.bkt.clouddn.com/imgs/doc/20180618001/photo2.png" alt="共享列表预览"></p>
 <h3 id="最专业的Nginx服务共享"><a href="#最专业的Nginx服务共享" class="headerlink" title="最专业的Nginx服务共享"></a>最专业的Nginx服务共享</h3><p>大家都知道单台的Nginx Web服务器并发性能较强,一般基本都是文件多并发大的情况下才用，企业里一般做路由转发、负载均衡、资源静态化，路由转发是为了对外统一暴露一个地址，负载均衡是根据某种算法(IP_HASH绑定策略、轮询策略、权重)将不同的请求分散到多台业务相同的机器上，资源静态化这个很常见，以前项目太大，会将JS/CSS单独分离，使得应用系统前端组件加载更快。</p>
 <ul>
 <li><p>下载Nginx</p>
@@ -407,7 +407,7 @@
 </li>
 <li><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cd /usr/local/nginx/sbin</span><br><span class="line">./nginx</span><br></pre></td></tr></table></figure>
 <p>启动成功后，输入localhost:80，看是否启动成功进入到index.html，如下图:</p>
-<p>  <img src="http://q5j98c24z.bkt.clouddn.com/imgs/doc/20180618001/index.png" alt="Nginx启动首页"></p>
+<p>  <img src="http://q788vcjor.bkt.clouddn.com/imgs/doc/20180618001/index.png" alt="Nginx启动首页"></p>
 </li>
 <li><p>查看启动进程</p>
 <p>如果懒得打开浏览器，直接看进程确认nginx是否启动</p>
@@ -418,14 +418,14 @@
 <figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">listen</span>       <span class="number">80</span>;        <span class="comment">#端口  </span></span><br><span class="line"><span class="attribute">server_name</span>  localhost;   <span class="comment">#服务名  </span></span><br><span class="line"><span class="attribute">charset</span> utf-<span class="number">8</span>; <span class="comment"># 避免中文乱码</span></span><br><span class="line"><span class="attribute">root</span>    /home/litong/Pictures;  <span class="comment">#显示的根索引目录，注意这里要改成你自己的，目录要存在  </span></span><br><span class="line"></span><br><span class="line"><span class="attribute">location</span> / &#123;</span><br><span class="line">    <span class="attribute">autoindex</span> <span class="literal">on</span>;             <span class="comment">#开启索引功能  </span></span><br><span class="line">    <span class="attribute">autoindex_exact_size</span> <span class="literal">off</span>; <span class="comment"># 关闭计算文件确切大小（单位bytes），只显示大概大小（单位kb、mb、gb）  </span></span><br><span class="line">    <span class="attribute">autoindex_localtime</span> <span class="literal">on</span>;   <span class="comment"># 显示本机时间而非 GMT 时间  </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./nginx -s reload</span><br></pre></td></tr></table></figure>
 <p> 在浏览器端输入localhost:80, 则出现如下界面:</p>
-<p><img src="http://q5j98c24z.bkt.clouddn.com/imgs/doc/20180618001/nginx.png" alt="Nginx共享列表预览"></p>
+<p><img src="http://q788vcjor.bkt.clouddn.com/imgs/doc/20180618001/nginx.png" alt="Nginx共享列表预览"></p>
 </li>
 </ul>
-<h2 id="不同终端效果欣赏"><a href="#不同终端效果欣赏" class="headerlink" title="不同终端效果欣赏"></a>不同终端效果欣赏</h2><h3 id="Python共享-Mac-Pro-Mac-OS-X-10-14-1-Mojave"><a href="#Python共享-Mac-Pro-Mac-OS-X-10-14-1-Mojave" class="headerlink" title="[Python共享]Mac Pro / Mac OS X 10.14.1 Mojave"></a>[Python共享]Mac Pro / Mac OS X 10.14.1 Mojave</h3><p><img src="http://q5j98c24z.bkt.clouddn.com/imgs/doc/20180618001/photo4.png" alt="视频预览"></p>
-<p><img src="http://q5j98c24z.bkt.clouddn.com/imgs/doc/20180618001/photo5.png" alt="图片预览"></p>
-<p><img src="http://q5j98c24z.bkt.clouddn.com/imgs/doc/20180618001/photo6.png" alt="文本预览"></p>
-<p><img src="http://q5j98c24z.bkt.clouddn.com/imgs/doc/20180618001/photo3.png" alt="PDF预览"></p>
-<h3 id="Nginx共享-Lenovo-Y430P-Deepin-Linux"><a href="#Nginx共享-Lenovo-Y430P-Deepin-Linux" class="headerlink" title="[Nginx共享]Lenovo Y430P/ Deepin Linux  "></a>[Nginx共享]Lenovo Y430P/ Deepin Linux  <img src="http://q5j98c24z.bkt.clouddn.com/imgs/doc/20180618001/deepin.png" alt="Nginx图片预览"></h3><h3 id="Python共享-XiaoMi-5X-Android-MIUI10"><a href="#Python共享-XiaoMi-5X-Android-MIUI10" class="headerlink" title="[Python共享]XiaoMi 5X/  Android-MIUI10"></a>[Python共享]XiaoMi 5X/  Android-MIUI10</h3><p><img src="http://q5j98c24z.bkt.clouddn.com/imgs/doc/20180618001/preview03.jpeg" alt="手机视频预览"></p>
+<h2 id="不同终端效果欣赏"><a href="#不同终端效果欣赏" class="headerlink" title="不同终端效果欣赏"></a>不同终端效果欣赏</h2><h3 id="Python共享-Mac-Pro-Mac-OS-X-10-14-1-Mojave"><a href="#Python共享-Mac-Pro-Mac-OS-X-10-14-1-Mojave" class="headerlink" title="[Python共享]Mac Pro / Mac OS X 10.14.1 Mojave"></a>[Python共享]Mac Pro / Mac OS X 10.14.1 Mojave</h3><p><img src="http://q788vcjor.bkt.clouddn.com/imgs/doc/20180618001/photo4.png" alt="视频预览"></p>
+<p><img src="http://q788vcjor.bkt.clouddn.com/imgs/doc/20180618001/photo5.png" alt="图片预览"></p>
+<p><img src="http://q788vcjor.bkt.clouddn.com/imgs/doc/20180618001/photo6.png" alt="文本预览"></p>
+<p><img src="http://q788vcjor.bkt.clouddn.com/imgs/doc/20180618001/photo3.png" alt="PDF预览"></p>
+<h3 id="Nginx共享-Lenovo-Y430P-Deepin-Linux"><a href="#Nginx共享-Lenovo-Y430P-Deepin-Linux" class="headerlink" title="[Nginx共享]Lenovo Y430P/ Deepin Linux  "></a>[Nginx共享]Lenovo Y430P/ Deepin Linux  <img src="http://q788vcjor.bkt.clouddn.com/imgs/doc/20180618001/deepin.png" alt="Nginx图片预览"></h3><h3 id="Python共享-XiaoMi-5X-Android-MIUI10"><a href="#Python共享-XiaoMi-5X-Android-MIUI10" class="headerlink" title="[Python共享]XiaoMi 5X/  Android-MIUI10"></a>[Python共享]XiaoMi 5X/  Android-MIUI10</h3><p><img src="http://q788vcjor.bkt.clouddn.com/imgs/doc/20180618001/preview03.jpeg" alt="手机视频预览"></p>
 <h3 id="Windows共享-Lenovo-ThinkPad-T410-Microsoft-Windows-10-家庭版"><a href="#Windows共享-Lenovo-ThinkPad-T410-Microsoft-Windows-10-家庭版" class="headerlink" title="[Windows共享]Lenovo ThinkPad T410/Microsoft Windows 10 家庭版"></a>[Windows共享]Lenovo ThinkPad T410/Microsoft Windows 10 家庭版</h3><p>Windows后续再体验，未完待续。。。</p>
     </div>
     

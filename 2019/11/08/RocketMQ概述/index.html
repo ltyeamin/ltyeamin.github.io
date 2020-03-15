@@ -196,30 +196,30 @@
     
     <div class="post-body post-content">
         <h1 id="1-MQ介绍"><a href="#1-MQ介绍" class="headerlink" title="1. MQ介绍"></a>1. MQ介绍</h1><h2 id="1-1-为什么要用MQ"><a href="#1-1-为什么要用MQ" class="headerlink" title="1.1 为什么要用MQ"></a>1.1 为什么要用MQ</h2><p>消息队列是一种“先进先出”的数据结构</p>
-<p><img src="http://q5j98c24z.bkt.clouddn.com/imgs/doc/20191109001/queue1.png" alt=""></p>
+<p><img src="http://q788vcjor.bkt.clouddn.com/imgs/doc/20191109001/queue1.png" alt=""></p>
 <p>其应用场景主要包含以下3个方面</p>
 <ul>
 <li>应用解耦</li>
 </ul>
 <p>系统的耦合性越高，容错性就越低。以电商应用为例，用户创建订单后，如果耦合调用库存系统、物流系统、支付系统，任何一个子系统出了故障或者因为升级等原因暂时不可用，都会造成下单操作异常，影响用户使用体验。</p>
-<p><img src="http://q5j98c24z.bkt.clouddn.com/imgs/doc/20191109001/解耦1.png" alt=""></p>
+<p><img src="http://q788vcjor.bkt.clouddn.com/imgs/doc/20191109001/解耦1.png" alt=""></p>
 <p>使用消息队列解耦合，系统的耦合性就会提高了。比如物流系统发生故障，需要几分钟才能来修复，在这段时间内，物流系统要处理的数据被缓存到消息队列中，用户的下单操作正常完成。当物流系统回复后，补充处理存在消息队列中的订单消息即可，终端系统感知不到物流系统发生过几分钟故障。</p>
-<p><img src="http://q5j98c24z.bkt.clouddn.com/imgs/doc/20191109001/解耦2.png" alt=""></p>
+<p><img src="http://q788vcjor.bkt.clouddn.com/imgs/doc/20191109001/解耦2.png" alt=""></p>
 <ul>
 <li>流量削峰</li>
 </ul>
-<p><img src="http://q5j98c24z.bkt.clouddn.com/imgs/doc/20191109001/mq-5.png" alt=""></p>
+<p><img src="http://q788vcjor.bkt.clouddn.com/imgs/doc/20191109001/mq-5.png" alt=""></p>
 <p>应用系统如果遇到系统请求流量的瞬间猛增，有可能会将系统压垮。有了消息队列可以将大量请求缓存起来，分散到很长一段时间处理，这样可以大大提到系统的稳定性和用户体验。</p>
-<p><img src="http://q5j98c24z.bkt.clouddn.com/imgs/doc/20191109001/mq-6.png" alt=""></p>
+<p><img src="http://q788vcjor.bkt.clouddn.com/imgs/doc/20191109001/mq-6.png" alt=""></p>
 <p>一般情况，为了保证系统的稳定性，如果系统负载超过阈值，就会阻止用户请求，这会影响用户体验，而如果使用消息队列将请求缓存起来，等待系统处理完毕后通知用户下单完毕，这样总不能下单体验要好。</p>
 <p><u>处于经济考量目的：</u></p>
 <p>业务系统正常时段的QPS如果是1000，流量最高峰是10000，为了应对流量高峰配置高性能的服务器显然不划算，这时可以使用消息队列对峰值流量削峰</p>
 <ul>
 <li>数据分发</li>
 </ul>
-<p><img src="http://q5j98c24z.bkt.clouddn.com/imgs/doc/20191109001/mq-1.png" alt=""></p>
+<p><img src="http://q788vcjor.bkt.clouddn.com/imgs/doc/20191109001/mq-1.png" alt=""></p>
 <p>通过消息队列可以让数据在多个系统更加之间进行流通。数据的产生方不需要关心谁来使用数据，只需要将数据发送到消息队列，数据使用方直接在消息队列中直接获取数据即可</p>
-<p><img src="http://q5j98c24z.bkt.clouddn.com/imgs/doc/20191109001/mq-2.png" alt=""></p>
+<p><img src="http://q788vcjor.bkt.clouddn.com/imgs/doc/20191109001/mq-2.png" alt=""></p>
 <h2 id="1-2-MQ的优点和缺点"><a href="#1-2-MQ的优点和缺点" class="headerlink" title="1.2 MQ的优点和缺点"></a>1.2 MQ的优点和缺点</h2><p>优点：解耦、削峰、数据分发</p>
 <p>缺点包含以下几点：</p>
 <ul>
@@ -284,8 +284,8 @@
 <li>认证与授权管理</li>
 </ul>
 <h2 id="1-4-各种MQ产品的比较"><a href="#1-4-各种MQ产品的比较" class="headerlink" title="1.4 各种MQ产品的比较"></a>1.4 各种MQ产品的比较</h2><p>常见的MQ产品包括Kafka、ActiveMQ、RabbitMQ、RocketMQ。 </p>
-<p><img src="http://q5j98c24z.bkt.clouddn.com/imgs/doc/20191109001/MQ%E6%AF%94%E8%BE%83.png" alt="主流MQ对比1"></p>
-<p><img src="http://q5j98c24z.bkt.clouddn.com/imgs/doc/20191109001/mq-pk.png" alt="主流MQ对比2"></p>
+<p><img src="http://q788vcjor.bkt.clouddn.com/imgs/doc/20191109001/MQ%E6%AF%94%E8%BE%83.png" alt="主流MQ对比1"></p>
+<p><img src="http://q788vcjor.bkt.clouddn.com/imgs/doc/20191109001/mq-pk.png" alt="主流MQ对比2"></p>
 <h1 id="2-总结"><a href="#2-总结" class="headerlink" title="2.  总结"></a>2.  总结</h1><p>​    RocketMQ基于Java开发的，完全的分布式架构，API相对比较简单(相比RabbitMQ)，容易掌握，并在阿里巴巴集团内部经过了大量(双11)的实践，分性能强悍。唯一不足的一点是文档相对不是很多，若能跟随源码深入了解其内部机制，这也不算缺点。</p>
 <h1 id="3-参考文档"><a href="#3-参考文档" class="headerlink" title="3. 参考文档"></a>3. 参考文档</h1><ul>
 <li><a href="http://rocketmq.apache.org/" target="_blank" rel="noopener">RocketMQ主页</a></li>

@@ -205,9 +205,13 @@
 </ul>
 <h2 id="1-2-引入网页资源导致的问题"><a href="#1-2-引入网页资源导致的问题" class="headerlink" title="1.2 引入网页资源导致的问题"></a>1.2 引入网页资源导致的问题</h2><ol>
 <li>网页加载速度慢， 因为我们要发起很多的二次请求；</li>
-<li>要处理错综复杂的依赖关系<h2 id="1-3-解决方案"><a href="#1-3-解决方案" class="headerlink" title="1.3 解决方案"></a>1.3 解决方案</h2><h3 id="1-3-1-通用解决方案"><a href="#1-3-1-通用解决方案" class="headerlink" title="1.3.1 通用解决方案"></a>1.3.1 通用解决方案</h3></li>
+<li>要处理错综复杂的依赖关系</li>
+</ol>
+<h2 id="1-3-解决方案"><a href="#1-3-解决方案" class="headerlink" title="1.3 解决方案"></a>1.3 解决方案</h2><h3 id="1-3-1-通用解决方案"><a href="#1-3-1-通用解决方案" class="headerlink" title="1.3.1 通用解决方案"></a>1.3.1 通用解决方案</h3><ol>
 <li>合并、压缩、精灵图、图片的Base64编码</li>
-<li>可以使用requireJS解决、也可以使用webpack可以解决各个包之间的复杂依赖关系；<h3 id="1-3-2-完美解决方案"><a href="#1-3-2-完美解决方案" class="headerlink" title="1.3.2 完美解决方案"></a>1.3.2 完美解决方案</h3></li>
+<li>可以使用requireJS解决、也可以使用webpack可以解决各个包之间的复杂依赖关系；</li>
+</ol>
+<h3 id="1-3-2-完美解决方案"><a href="#1-3-2-完美解决方案" class="headerlink" title="1.3.2 完美解决方案"></a>1.3.2 完美解决方案</h3><ol>
 <li>使用Gulp， 是基于 task 任务的；</li>
 <li>使用Webpack， 是基于整个项目进行构建的；</li>
 </ol>
@@ -387,48 +391,16 @@
 </li>
 <li><p>编写基本的vue代码</p>
 <ol>
-<li><p>index.html代码</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>&#123;&#123;msg&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<li>index.html代码</li>
+</ol>
 </li>
+</ul>
+<pre><code><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span> <span class="attr">id</span>=<span class="string">"app"</span>&gt;</span>&#123;&#123;msg&#125;&#125;<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</code></pre><ol start="2">
 <li><p>main.js代码</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 导入vue模块</span></span><br><span class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line"><span class="comment">// 创建一个vue实例</span></span><br><span class="line"><span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">    el: <span class="string">"#app"</span>,</span><br><span class="line">    data: &#123;</span><br><span class="line">        msg: <span class="string">"hello"</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><figcaption><span>fcitx-sunpinyin 或 fcitx-googlepinyin 或 fcitx-pinyin</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">     <span class="comment">// 导入vue模块</span></span><br><span class="line">     <span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></span><br><span class="line">     <span class="comment">// 创建一个vue实例</span></span><br><span class="line">     <span class="keyword">var</span> vm = <span class="keyword">new</span> Vue(&#123;</span><br><span class="line">         el: <span class="string">"#app"</span>,</span><br><span class="line">         data: &#123;</span><br><span class="line">             msg: <span class="string">"hello"</span></span><br><span class="line">         &#125;</span><br><span class="line">    </span><br><span class="line"> </span><br><span class="line">     </span><br><span class="line"></span><br><span class="line">- 运行<span class="string">`npm run dev`</span>，测试是否运行成功</span><br><span class="line"></span><br><span class="line">  运行后，我们发现，浏览器并没有显示出msg的数据，我们打开控制台可以看到如下报错：</span><br><span class="line"></span><br><span class="line">  &gt; vue.runtime.esm.js:<span class="number">620</span> [Vue warn]: You are using the runtime-only build <span class="keyword">of</span> Vue where the template compiler is not available. Either pre-compile the templates into render functions, or use the compiler-included build.</span><br><span class="line">  &gt;</span><br><span class="line">  &gt; (found <span class="keyword">in</span> &lt;Root&gt;)</span><br><span class="line"></span><br><span class="line">大概的意思是：你使用了 runtime-only的依赖，导致模板编译不可用。</span><br><span class="line"></span><br><span class="line">回顾包的查找规则：</span><br><span class="line"></span><br><span class="line"><span class="number">1.</span> 找 项目根目录中有没有 node_modules 的文件夹</span><br><span class="line"><span class="number">2.</span> 在 node_modules 中 根据包名，找对应的 vue 文件夹</span><br><span class="line"><span class="number">3.</span> 在 vue 文件夹中，找 一个叫做 package.json 的包配置文件</span><br><span class="line"><span class="number">4.</span> 在 package.json 文件中，查找 一个 main 属性【main属性指定了这个包在被加载时候，的入口文件】</span><br><span class="line"></span><br><span class="line">经过查询vue包的配置，我们最终找出vue.runtime.common.js这个文件，其实这个文件是阉割版本的vue，功能不全，所以上述代码在浏览器执行错误。</span><br><span class="line"></span><br><span class="line">注意：在网页通过script标签引入的是完整功能的vue依赖。</span><br><span class="line"></span><br><span class="line">- 解决方式</span><br><span class="line"></span><br><span class="line">  <span class="number">1.</span> 方式一（不推荐）</span><br><span class="line"></span><br><span class="line">     将node_modules的vue包下package.json中main属性的内容改为vue.js即可</span><br><span class="line"></span><br><span class="line">  <span class="number">2.</span> 方式二（不推荐）</span><br><span class="line"></span><br><span class="line">     在js文件中导入功能全的vue依赖。即将<span class="string">`import Vue from 'vue'`</span>改为<span class="string">`import Vue from '../../node_modules/vue/dist/vue.js'`</span></span><br><span class="line"></span><br><span class="line">  <span class="number">3.</span> 方式三（推荐）     </span><br><span class="line"></span><br><span class="line">     在webpack.config.js文件添加节点即可。</span><br><span class="line"></span><br><span class="line">     <span class="string">``</span><span class="string">`javascript</span></span><br><span class="line"><span class="string">       resolve: &#123;</span></span><br><span class="line"><span class="string">         alias: &#123; // 修改 Vue 被导入时候的包的路径</span></span><br><span class="line"><span class="string">           "vue$": "vue/dist/vue.js"</span></span><br><span class="line"><span class="string">         &#125;</span></span><br><span class="line"><span class="string">       &#125;</span></span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-</li>
-<li><p>运行<code>npm run dev</code>，测试是否运行成功</p>
-<p>运行后，我们发现，浏览器并没有显示出msg的数据，我们打开控制台可以看到如下报错：</p>
-<blockquote>
-<p>vue.runtime.esm.js:620 [Vue warn]: You are using the runtime-only build of Vue where the template compiler is not available. Either pre-compile the templates into render functions, or use the compiler-included build.</p>
-<p>(found in <root>)</root></p>
-</blockquote>
-</li>
-</ul>
-<p>大概的意思是：你使用了 runtime-only的依赖，导致模板编译不可用。</p>
-<p>回顾包的查找规则：</p>
-<ol>
-<li>找 项目根目录中有没有 node_modules 的文件夹</li>
-<li>在 node_modules 中 根据包名，找对应的 vue 文件夹</li>
-<li>在 vue 文件夹中，找 一个叫做 package.json 的包配置文件</li>
-<li>在 package.json 文件中，查找 一个 main 属性【main属性指定了这个包在被加载时候，的入口文件】</li>
-</ol>
-<p>经过查询vue包的配置，我们最终找出vue.runtime.common.js这个文件，其实这个文件是阉割版本的vue，功能不全，所以上述代码在浏览器执行错误。</p>
-<p>注意：在网页通过script标签引入的是完整功能的vue依赖。</p>
-<ul>
-<li><p>解决方式</p>
-<ol>
-<li><p>方式一（不推荐）</p>
-<p>将node_modules的vue包下package.json中main属性的内容改为vue.js即可</p>
-</li>
-<li><p>方式二（不推荐）</p>
-<p>在js文件中导入功能全的vue依赖。即将<code>import Vue from &#39;vue&#39;</code>改为<code>import Vue from &#39;../../node_modules/vue/dist/vue.js&#39;</code></p>
-</li>
-<li><p>方式三（推荐）     </p>
-<p>在webpack.config.js文件添加节点即可。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">resolve: &#123;</span><br><span class="line">  alias: &#123; <span class="comment">// 修改 Vue 被导入时候的包的路径</span></span><br><span class="line">    <span class="string">"vue$"</span>: <span class="string">"vue/dist/vue.js"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-</li>
-</ul>
 <h2 id="4-2-配置vue单页面文件"><a href="#4-2-配置vue单页面文件" class="headerlink" title="4.2 配置vue单页面文件"></a>4.2 配置vue单页面文件</h2><ol>
 <li><p>运行<code>cnpm i vue -S</code>将vue安装为运行依赖；</p>
 </li>
