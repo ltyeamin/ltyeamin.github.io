@@ -232,11 +232,11 @@
 <ul>
 <li>若是强引用，即使threadLocal对象强制设置为null，但key的引用依然指向ThreadLocal对象，所以会有内存泄露，而使用弱引用则不会。</li>
 <li>但是还有内存泄露存在的可能，ThreadLocal被回收，key的值变为null，则导致整个value再也无法被访问到，因此依然存在内存泄露。</li>
-<li>为了使ThreadLocal对象回收，我们尽可能不要定义static的ThreadLocal对象，不要延长它的生命周期。另外，尽可能手动调用remove方法提前通知JVM回收<h1 id="3-参考文档"><a href="#3-参考文档" class="headerlink" title="3. 参考文档"></a>3. 参考文档</h1></li>
+<li>为了使ThreadLocal对象回收，我们尽可能不要定义static的ThreadLocal对象，不要延长它的生命周期。另外，尽可能手动调用remove方法提前通知JVM回收</li>
 </ul>
 </li>
 </ol>
-<ul>
+<h1 id="3-参考文档"><a href="#3-参考文档" class="headerlink" title="3. 参考文档"></a>3. 参考文档</h1><ul>
 <li><a href="https://read.douban.com/ebook/128052544/?from=groupmessage" target="_blank" rel="noopener">《深入理解JVM虚拟机：JVM高级特性与最佳实践(第3版)》周志明著</a></li>
 </ul>
     </div>
