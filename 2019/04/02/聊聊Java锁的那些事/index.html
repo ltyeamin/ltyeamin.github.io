@@ -187,13 +187,13 @@
             
             
             <p class="fa fa-exclamation-triangle warning">
-                本文于<strong>347</strong>天之前发表，文中内容可能已经过时
+                本文于<strong>380</strong>天之前发表，文中内容可能已经过时
             </p>
         
     </div>
     
     <div class="post-body post-content">
-        <p>昨天我们学习了HashMap相关的源码，本来打算今天写ConcurrentHashMap源码分析，但是ConcurrentHashMap涉及到一些锁的概念，所以我觉得越是底层的东西，越是要好好研究一番，今天趁此机会好好的系统学习一下。</p>
+        <p>昨天我们学习了HashMap相关的源码，本来打算今天写ConcurrentHashMap源码分析，但是ConcurrentHashMap涉及到一些锁的概念，所以我觉得越是底层的东西，越是要好好研究一番，今天趁此机会好好的系统学习一下。在美团的技术博客里,我找到这篇文章,感觉很好,于是今天讲其文摘抄过来。</p>
 <p>那么今天就来聊聊Java锁的那些事情。Java为我们提供了种类丰富的锁，每种锁因其特性的不同，在适当的场景下能够展现出非常高的效率。本文旨在对锁相关源码（本文中的源码来自JDK 8和Netty 3.10.6）、使用场景进行举例，为读者介绍主流锁的知识点，以及不同的锁的适用场景。</p>
 <p>Java中往往是按照是否含有某一特性来定义锁，我们通过特性将锁进行分组归类，再使用对比的方式进行介绍，帮助大家更快捷的理解相关知识。下面给出本文内容的总体分类目录：</p>
 <p><img src="https://awps-assets.meituan.net/mit-x/blog-images-bundle-2018b/7f749fc8.png" alt="Java主流锁"></p>
@@ -389,6 +389,7 @@
 <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本文Java中常用的锁以及常见的锁的概念进行了基本介绍，并从源码以及实际应用的角度进行了对比分析。限于篇幅以及个人水平，没有在本篇文章中对所有内容进行深层次的讲解。后续我本人将会对Java的锁进行依次讲解。</p>
 <p>其实Java本身已经对锁本身进行了良好的封装，降低了我们在平时工作中的使用难度。但是我们也需要熟悉锁的底层原理，不同场景下选择最适合的锁。而且源码中的思路都是非常好的思路，也是值得大家去学习和借鉴的。</p>
 <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
+<li><a href="https://tech.meituan.com/2018/11/15/java-lock.html" target="_blank" rel="noopener">转载源-美团技术博客-不可不说的Java“锁”事</a></li>
 <li>《深入理解Java虚拟机（第2版）》周志明著</li>
 <li>《Java并发编程的艺术》方腾飞等著</li>
 <li><a href="https://juejin.im/post/5a73cbbff265da4e807783f5" target="_blank" rel="noopener">Java CAS 原理剖析</a></li>
