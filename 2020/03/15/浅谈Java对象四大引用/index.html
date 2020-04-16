@@ -228,7 +228,7 @@
 </ol>
 <ol start="2">
 <li><p>ThreadLocal分析与总结</p>
-<p> 为什么ThreadLocal中的ThreadLocalMap.Entry药使用弱引用？</p>
+<p> 为什么ThreadLocal中的ThreadLocalMap.Entry要使用弱引用？</p>
 <ul>
 <li>若是强引用，即使threadLocal对象强制设置为null，但key的引用依然指向ThreadLocal对象，所以会有内存泄露，而使用弱引用则不会。</li>
 <li>但是还有内存泄露存在的可能，ThreadLocal被回收，key的值变为null，则导致整个value再也无法被访问到，因此依然存在内存泄露。</li>
