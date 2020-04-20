@@ -188,7 +188,7 @@
             
             
             <p class="fa fa-exclamation-triangle warning">
-                本文于<strong>677</strong>天之前发表，文中内容可能已经过时
+                本文于<strong>678</strong>天之前发表，文中内容可能已经过时
             </p>
         
     </div>
@@ -233,9 +233,9 @@
 <p>为什么我们不使用try-with-resource语句来自动关闭通道和连接？通过这样做，我们只需让程序继续运行，关闭所有内容，然后退出！这将是尴尬的，因为我们希望在消费者异步监听消息到达时，该进程保持活动状态。</p>
 <p>我们即将告诉服务器从队列中传递消息。因为它会异步地向我们发送消息，所以我们以对象的形式提供一个回调，它将缓冲消息，直到我们准备好使用它们。这就是DeliverCallback子类的作用。</p>
 <h3 id="消息生产与发送"><a href="#消息生产与发送" class="headerlink" title="消息生产与发送"></a>消息生产与发送</h3><p>我们先执行消息发送者，执行完成后如下图：</p>
-<p><img src="http://q788vcjor.bkt.clouddn.com/imgs/doc/20180612001/send.png" alt="发送消息"></p>
+<p><img src="http://q92ow9r1g.bkt.clouddn.com/imgs/doc/20180612001/send.png" alt="发送消息"></p>
 <p>紧接着，我们进行消息消费，执行完成后如下图:</p>
-<p><img src="http://q788vcjor.bkt.clouddn.com/imgs/doc/20180612001/recv.png" alt="消费消息"></p>
+<p><img src="http://q92ow9r1g.bkt.clouddn.com/imgs/doc/20180612001/recv.png" alt="消费消息"></p>
 <p>当消息生产者一直发送时，我们可以得到如下结果：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">15:17:00: Executing task <span class="string">'Recv.main()'</span>...</span><br><span class="line"></span><br><span class="line">&gt; Task :compileJava UP-TO-DATE</span><br><span class="line">&gt; Task :processResources NO-SOURCE</span><br><span class="line">&gt; Task :classes UP-TO-DATE</span><br><span class="line"></span><br><span class="line">&gt; Task :Recv.main()</span><br><span class="line">SLF4J: Failed to load class <span class="string">"org.slf4j.impl.StaticLoggerBinder"</span>.</span><br><span class="line">SLF4J: Defaulting to no-operation (NOP) logger implementation</span><br><span class="line">SLF4J: See http://www.slf4j.org/codes.html<span class="comment">#StaticLoggerBinder for further details.</span></span><br><span class="line">[*] Waiting <span class="keyword">for</span> messages. To <span class="built_in">exit</span> press CTRL+C</span><br><span class="line">[x] Received <span class="string">'Hello World, litong, Welcome RabbitMQ!'</span></span><br><span class="line">[x] Received <span class="string">'Hello World, lt, Welcome RabbitMQ!'</span></span><br></pre></td></tr></table></figure>
 <h2 id="源码地址"><a href="#源码地址" class="headerlink" title="源码地址"></a>源码地址</h2><p><a href="https://github.com/ltyeamin/RabbitMQ-Action/tree/master/patterns" target="_blank" rel="noopener">https://github.com/ltyeamin/RabbitMQ-Action/tree/master/patterns</a></p>
