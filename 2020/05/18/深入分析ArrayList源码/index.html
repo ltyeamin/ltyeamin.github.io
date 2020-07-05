@@ -196,7 +196,7 @@
 <li>增删慢：每次删除元素，都需要更改数组长度、拷贝以及移动元素位置。</li>
 <li>查询快：由于数组在内存中是一块连续空间，因此可以根据地址+索引的方式快速获取对应位置上的元素。  </li>
 </ul>
-<h2 id="1-3-ArrayList继承体系"><a href="#1-3-ArrayList继承体系" class="headerlink" title="1.3 ArrayList继承体系"></a>1.3 ArrayList继承体系</h2><p><img src="http://qasc39n0e.bkt.clouddn.com/imgs/doc/20200518001image-20200519145324716.png" alt="ArrayList继承体系图"></p>
+<h2 id="1-3-ArrayList继承体系"><a href="#1-3-ArrayList继承体系" class="headerlink" title="1.3 ArrayList继承体系"></a>1.3 ArrayList继承体系</h2><p><img src="http://qczr457kz.bkt.clouddn.com/imgs/doc/20200518001image-20200519145324716.png" alt="ArrayList继承体系图"></p>
 <h3 id="1-3-1-RandomAccess标记性接口"><a href="#1-3-1-RandomAccess标记性接口" class="headerlink" title="1.3.1 RandomAccess标记性接口"></a>1.3.1 RandomAccess标记性接口</h3><h4 id="1-3-1-1-介绍"><a href="#1-3-1-1-介绍" class="headerlink" title="1.3.1.1 介绍"></a>1.3.1.1 介绍</h4><ul>
 <li>标记接口由 List 实现使用，以表明它们支持快速（通常为恒定时间）随机访问。<br>此接口的主要目的是允许通用算法更改其行为，以便在应用于<strong>随机访问列表</strong>或<strong>顺序访问列表</strong>时提供良好的性<br>能。</li>
 <li>用于操纵随机访问列表的最佳算法（例如 ArrayList ）可以在应用于顺序访问列表时产生二次行为（如<br>LinkedList ）。 </li>
@@ -353,6 +353,11 @@
 </article>
 
 <div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2020/05/24/GC调优基础之必备知识/" class="pre-post btn btn-default" title="GC调优基础之必备知识">
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">GC调优基础之必备知识</span>
+        </a>
     
     
         <a href="/2020/04/17/Redis持久化机制/" class="next-post btn btn-default" title="Redis持久化机制">

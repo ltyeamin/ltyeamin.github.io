@@ -1,0 +1,504 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="彤哥哥的博客">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://ltyeamin.github.io">
+    <!--SEO-->
+
+    <meta name="keywords" content="Java">
+
+
+    <meta name="description" content="公司最近在招一位4年以上的Java高级开发工程师，今天早上HR给了我一份的简历，让我去会议室进行技术面试。
+我大概看了下简历的基本项(男、29岁、本科、5年Java开发经验)，就去会议室面见应聘...">
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>面试官:你真的了解Java对象吗? | 彤哥哥的博客</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="彤哥哥的博客" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+<script src="/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+<link rel="stylesheet" href="/css/calendar.css?rev=@@hash">
+<link rel="stylesheet" href="/css/variable.css?rev=@@hash">
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?ebfd000c0e7cc1ee84a00f01d419b1e2";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header" style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)">
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="YeaMin">
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                 <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://ltyeamin.github.io">彤哥哥的博客</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa"></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/backend/"><i class="fa"></i>后端</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/frontend/"><i class="fa"></i>前端</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/ops/"><i class="fa"></i>运维</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/database/"><i class="fa"></i>数据库</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/algorithm/"><i class="fa"></i>算法</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/pm/"><i class="fa"></i>项目管理</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href=""><i class="fa"></i>自媒体</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/others/"><i class="fa"></i>生活</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/about"><i class="fa /favicon.ico"></i>关于</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="面试官:你真的了解Java对象吗?">
+            
+	            面试官:你真的了解Java对象吗?
+            
+        </h1>
+        <div class="post-meta">
+    
+        <span class="categories-meta fa-wrap">
+            <i class="fa fa-folder-open-o"></i>
+            <a class="category-link" href="/categories/backend/">backend</a>
+        </span>
+    
+
+    
+        <span class="fa-wrap">
+            <i class="fa fa-tags"></i>
+            <span class="tags-meta">
+                
+                    <a class="tag-link" href="/tags/Java/">Java</a>
+                
+            </span>
+        </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2020/06/29</span>
+        </span>
+        
+            <span class="fa-wrap">
+                <i class="fa fa-eye"></i>
+                <span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    
+</div>
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <p>公司最近在招一位4年以上的Java高级开发工程师，今天早上HR给了我一份的简历，让我去会议室进行技术面试。</p>
+<p>我大概看了下简历的基本项(男、29岁、本科、5年Java开发经验)，就去会议室面见应聘者了。</p>
+<p>首先见了应聘者打了声招呼，紧接着他开始自我介绍，balabala………</p>
+<p>介绍完毕后，试想着，5年工作经验应该在可以受得了我无情的毒打。</p>
+<p>然后，我问了一些基础性东西，他的回答令我比较满意，但是都是凤毛麟角。</p>
+<p>因为我个人喜欢深度挖掘知识点，随后，我为他准备了面试连环炮，但结果却事与愿违。</p>
+<p>面了几下后了解到他的离职原因: 由于今年疫情扩散和资本市场萎缩的原因，上一家公司(国企)大幅度降薪，工作不好找。</p>
+<p>不过，他还是算比较乐观的，说是同事和他同样工作经验，都可以找20k以上的薪资，他相信他也可以。</p>
+<p>我面了几下后，就让回去等通知了。不是我个人比较自满，而是现在的市场太混乱、人心太浮躁罢了。</p>
+<p>5年经验的技术开发者，上来只想着谈分布式、谈架构，真的是让我大为所叹。</p>
+<p>不积跬步，<em>无以至千里</em>；不积小流，无以成江海。</p>
+<p>架构都是一点一点的基础累积下来的，基础不扎实，谈何架构，谈何未来？</p>
+<p>现在早已不是2015年那个时候，闭着眼睛会CRUD就可以找到一份待遇不错的工作。</p>
+<p>我现在终于明白为什么大厂特别注重数据结构与算法、计算机基础与原理、框架原理、网络通信原理。</p>
+<p>随着时代的进步，初级工程师已经太饱和了，高级工程师还很稀缺。这个社会早对IT从业人员有了更高的要求。</p>
+<p>下面是我问他Java对象相关知识点的面试连环炮，希望以后的日子里，自己能够引以为戒，持续深入学习。</p>
+<h1 id="1-你了解Java的Object类吗？"><a href="#1-你了解Java的Object类吗？" class="headerlink" title="1. 你了解Java的Object类吗？"></a>1. 你了解Java的Object类吗？</h1><p>万物皆对象。Java中java.lang.Object类是Java Class的超类，任何Java类的顶层都隐式继承它。</p>
+<p>下面我们通过源码来学习一下Object.class:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> java.lang;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Class Object是类Object结构的根。</span></span><br><span class="line"><span class="comment"> * 每个CLass都将Object作为超类。</span></span><br><span class="line"><span class="comment"> × 所有对象（包括数组）都实现了这个类的方法。</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>  unascribed</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@see</span>     java.lang.Class</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@since</span>   JDK1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Object</span> </span>&#123;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">registerNatives</span><span class="params">()</span></span>;</span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        <span class="comment">// 静态初始化native方法，即使与操作系统绑定的C/C++方法</span></span><br><span class="line">        registerNatives();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 返回此Object的运行时类。 </span></span><br><span class="line"><span class="comment">     * 返回的类对象是被表示类的static synchronized方法锁定的对象。</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * 实际结果的类型是Class&lt;? extends |X|&gt;其中|X|是静态类型上其表达的擦除getClass被调用。</span></span><br><span class="line"><span class="comment">     * 例如，在此代码片段中不需要转换：</span></span><br><span class="line"><span class="comment">     * Number n = 0; </span></span><br><span class="line"><span class="comment">     * Class&lt;? extends Number&gt; c = n.getClass();</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span>  返回类对象的运行时类的Class对象。</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@jls</span> 15.8.2 Class Literals</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> Class&lt;?&gt; getClass();</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 返回对象的哈希码值</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">native</span> <span class="keyword">int</span> <span class="title">hashCode</span><span class="params">()</span></span>;</span><br><span class="line">    </span><br><span class="line">     </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 返回当前对象this和obj是否指向的是同一个引用</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">equals</span><span class="params">(Object obj)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">this</span> == obj);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 创建并返回此对象的副本。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">native</span> Object <span class="title">clone</span><span class="params">()</span> <span class="keyword">throws</span> CloneNotSupportedException</span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 返回对象的字符串表示形式。默认：Class Name + @ + HashCode的十六进制</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">toString</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> getClass().getName() + <span class="string">"@"</span> + Integer.toHexString(hashCode());</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 唤醒正在等待对象监视器的单个线程。只能唤醒一个线程。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">notify</span><span class="params">()</span></span>;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 唤醒正在等待对象监视器的所有线程。可以唤醒多个线程。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">notifyAll</span><span class="params">()</span></span>;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 使当前线程等待。</span></span><br><span class="line"><span class="comment">     * 直到另一个线程调用此对象的notify()方法或notifyAll()方法，或指定的时间timeout已到才被唤醒。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">native</span> <span class="keyword">void</span> <span class="title">wait</span><span class="params">(<span class="keyword">long</span> timeout)</span> <span class="keyword">throws</span> InterruptedException</span>;</span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 和wait(long timeout)类似，但它允许对放弃之前等待通知的时间进行更精细(纳秒)的控制。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">wait</span><span class="params">(<span class="keyword">long</span> timeout, <span class="keyword">int</span> nanos)</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (timeout &lt; <span class="number">0</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(<span class="string">"timeout value is negative"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (nanos &lt; <span class="number">0</span> || nanos &gt; <span class="number">999999</span>) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalArgumentException(</span><br><span class="line">                <span class="string">"nanosecond timeout value out of range"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (nanos &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            timeout++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        wait(timeout);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 相当于wait(0)，线程的虚假唤醒：不可以用if判断，而是用while判断。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">void</span> <span class="title">wait</span><span class="params">()</span> <span class="keyword">throws</span> InterruptedException </span>&#123;</span><br><span class="line">        wait(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 当垃圾收集确定不再有对该对象的引用时，会调用这个方法进行GC。只会调用一次。</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">void</span> <span class="title">finalize</span><span class="params">()</span> <span class="keyword">throws</span> Throwable </span>&#123; &#125;</span><br></pre></td></tr></table></figure>
+<h1 id="2-解释一下对象的创建过程？"><a href="#2-解释一下对象的创建过程？" class="headerlink" title="2. 解释一下对象的创建过程？"></a>2. 解释一下对象的创建过程？</h1><p>当然不是简单的new Object();操作，对象的创建存在半初始化状态。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ObjectTest</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> age ;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ObjectTest</span><span class="params">(<span class="keyword">int</span> age)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.age = age;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        ObjectTest obj = <span class="keyword">new</span> ObjectTest(<span class="number">25</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">litong@LT:/media/litong/文档/code/java/back_end_services/java/src$ javac ObjectTest.java <span class="comment"># 编译字节码</span></span><br><span class="line">litong@LT:/media/litong/文档/code/java/back_end_services/java/src$ javap -c ObjectTest.class <span class="comment"># 查看字节码</span></span><br><span class="line">Compiled from <span class="string">"ObjectTest.java"</span></span><br><span class="line">public class ObjectTest &#123;</span><br><span class="line">  public ObjectTest(int);</span><br><span class="line">    Code:</span><br><span class="line">       0: aload_0</span><br><span class="line">       1: invokespecial <span class="comment">#1                  // Method java/lang/Object."&lt;init&gt;":()V</span></span><br><span class="line">       4: aload_0</span><br><span class="line">       5: iload_1</span><br><span class="line">       6: putfield      <span class="comment">#2                  // Field age:I</span></span><br><span class="line">       9: <span class="built_in">return</span></span><br><span class="line"></span><br><span class="line">  public static void main(java.lang.String[]);</span><br><span class="line">    Code:</span><br><span class="line">       0: new           <span class="comment">#3                  // class ObjectTest</span></span><br><span class="line">       3: dup</span><br><span class="line">       4: bipush        25</span><br><span class="line">       6: invokespecial <span class="comment">#4                  // Method "&lt;init&gt;":(I)V</span></span><br><span class="line">       9: astore_1</span><br><span class="line">      10: <span class="built_in">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一个对象的创建至少经过<strong>new、dup、invokespecial、astore_1</strong>三个字节码指令:</p>
+<ul>
+<li>new: 当调用new指令时，JVM虚拟机向操作系统申请合适的空间，创建了一个类的实例，但是还没有调用构造器函数。</li>
+<li>dup：使用<code>invokespecial命令会从</code>操作数堆栈中弹出nargs参数值和objectref<code>，</code>正是因为需要调用这个函数才导致中间必须要有一个 dup 指令，不然调用完<code>&lt;init&gt;</code>函数以后，操作数栈为空，就再也找不回刚刚创建的对象了。</li>
+<li>invokespecial : 使用 <code>invokespecial</code>调用了 <code>&lt;init&gt;</code> 后才真正调用了构造器函数。</li>
+<li>astore_1：将对象空间和对象引用关联。</li>
+</ul>
+<p>上述Java代码片段ObjectTest obj = new ObjectTest(25); 对象的转述流程如下：</p>
+<ul>
+<li>类校验成功后，加载ObjectTest.class。</li>
+<li>内存中申请一块合适大小的内存。并在内存生成一个引用变量，此时内存地址和引用变量未产生关联。</li>
+<li>第一次初始化:加载初始化，成员变量若为基本数据类型，则默认值是基本数据类型的默认值；若为引用类型，默认值为null。此时age的值为0。</li>
+<li>第二次初始化:构造初始化，此时age的值为25；</li>
+<li>所有初始化完成后，将引用变量的指向new的那块内存地址，完成对象的创建。</li>
+</ul>
+<h1 id="3-DCL单例到底需不需要加volatite？"><a href="#3-DCL单例到底需不需要加volatite？" class="headerlink" title="3. DCL单例到底需不需要加volatite？"></a>3. DCL单例到底需不需要加volatite？</h1><p>答案是加，而且一定要加。首先我们先回顾一次懒汉式单例到DCL单例的演变，然后我们一一剖析为什么一定要加volatite。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.concurrent.TimeUnit;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@projectName</span>: Singleton</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@className</span>: com.java.Singleton</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span>: 单例对象演示</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: tong.li</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@createTime</span>: 2020/6/29 下午21:37</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@version</span>: v1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Singleton</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** 单例实例引用 */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> Singleton SINGLETON = <span class="keyword">null</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 私有构造，禁止外部构造</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Singleton</span><span class="params">()</span></span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"> </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 首先判断是否为null</span></span><br><span class="line">        <span class="keyword">if</span> (SINGLETON == <span class="keyword">null</span>) &#123;   <span class="comment">// 假设所有线程都进来,先阻塞1秒，都全部唤醒后，会new多次</span></span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">// 这里睡眠1秒，会实例化多次</span></span><br><span class="line">                TimeUnit.SECONDS.sleep(<span class="number">1</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 若为null，直接new</span></span><br><span class="line">            SINGLETON = <span class="keyword">new</span> Singleton();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 返回最终的实例对象</span></span><br><span class="line">        <span class="keyword">return</span> SINGLETON;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 创建具有5个线程的线程池</span></span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span> ; i++) &#123;</span><br><span class="line">            <span class="comment">// 多线程访问对象，看是否同一个对象</span></span><br><span class="line">            <span class="keyword">new</span> Thread(() -&gt; System.out.println(Singleton.getInstance())).start();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 上述代码运行结果，很明显不是同一个对象，意味着该对象不是单例的</span></span><br><span class="line">com.fendan.house.Singleton@6fcaf925</span><br><span class="line">com.fendan.house.Singleton@39531411</span><br><span class="line">com.fendan.house.Singleton@220af032</span><br><span class="line">com.fendan.house.Singleton@39531411</span><br><span class="line">com.fendan.house.Singleton@78541db1</span><br><span class="line"><span class="comment"># 在getInstance()方法直接加synchronized运行可以解决该问题，但是锁粒度太大，性能很低效</span></span><br><span class="line">com.fendan.house.Singleton@4e38bc80</span><br><span class="line">com.fendan.house.Singleton@4e38bc80</span><br><span class="line">com.fendan.house.Singleton@4e38bc80</span><br><span class="line">com.fendan.house.Singleton@4e38bc80</span><br><span class="line">com.fendan.house.Singleton@4e38bc80</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 锁细化后仍然存在线程安全问题</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span>  <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 首先判断是否为null</span></span><br><span class="line">    <span class="keyword">if</span> (SINGLETON == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="comment">// 锁粒度细小化，但是仍然存在线程安全</span></span><br><span class="line">        <span class="comment">// 如果线程1先进来再阻塞，其他线程都会进入到这个判断里等待线程1释放锁。</span></span><br><span class="line">        <span class="comment">// 若线程1创建完对象后释放锁，其他线程都可以竞争这把锁，从而会多次new</span></span><br><span class="line">        <span class="keyword">synchronized</span> (Singleton.class) &#123;</span><br><span class="line">            <span class="keyword">try</span> &#123;</span><br><span class="line">                <span class="comment">// 这里睡眠1秒，会实例化多次</span></span><br><span class="line">                TimeUnit.SECONDS.sleep(<span class="number">1</span>);</span><br><span class="line">            &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                e.printStackTrace();</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="comment">// 若为null，直接new</span></span><br><span class="line">            SINGLETON = <span class="keyword">new</span> Singleton();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 返回最终的实例对象</span></span><br><span class="line">    <span class="keyword">return</span> SINGLETON;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 锁细化后的执行结果仍然存在线程安全问题，不是单例对象。</span><br><span class="line">com.fendan.house.Singleton@17ea7521</span><br><span class="line">com.fendan.house.Singleton@220af032</span><br><span class="line">com.fendan.house.Singleton@6fcaf925</span><br><span class="line">com.fendan.house.Singleton@39531411</span><br><span class="line">com.fendan.house.Singleton@4e38bc80</span><br></pre></td></tr></table></figure>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * DCL，双重判断保证单例</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="function"><span class="keyword">public</span>  <span class="keyword">static</span> Singleton <span class="title">getInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 首先判断是否为null</span></span><br><span class="line">    <span class="keyword">if</span> (SINGLETON == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="comment">// 锁粒度细小化</span></span><br><span class="line">        <span class="keyword">synchronized</span> (Singleton.class) &#123;</span><br><span class="line">            <span class="comment">// DCL(Double Check Lock)，锁的双重判断，即使多线程进来，也确保是单例</span></span><br><span class="line">            <span class="keyword">if</span> (SINGLETON == <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="keyword">try</span> &#123;</span><br><span class="line">                    <span class="comment">// 这里睡眠1秒，会实例化多次</span></span><br><span class="line">                    TimeUnit.SECONDS.sleep(<span class="number">1</span>);</span><br><span class="line">                &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">                    e.printStackTrace();</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">// 若为null，直接new</span></span><br><span class="line">                SINGLETON = <span class="keyword">new</span> Singleton();</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 返回最终的实例对象</span></span><br><span class="line">    <span class="keyword">return</span> SINGLETON;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># DCL模式下肯定是单例</span></span><br><span class="line">com.fendan.house.Singleton@78541db1</span><br><span class="line">com.fendan.house.Singleton@78541db1</span><br><span class="line">com.fendan.house.Singleton@78541db1</span><br><span class="line">com.fendan.house.Singleton@78541db1</span><br><span class="line">com.fendan.house.Singleton@78541db1</span><br></pre></td></tr></table></figure>
+<p>了解到了DCL，我们回过头来看问题，volatite有两种语义：保证线程可见和禁止指令重排序。</p>
+<p>结合问题2，对象的创建存在半初始化状态，若没有被volatite修饰的，创建对象的指令有可能重排序。</p>
+<p>若在此基础上多线程访问，访问到的Object可能是半初始化不完整的对象。所以一定DCL单例一定要加volatile。</p>
+<h1 id="4-简述对象在内存中的布局"><a href="#4-简述对象在内存中的布局" class="headerlink" title="4. 简述对象在内存中的布局"></a>4. 简述对象在内存中的布局</h1><p>  在HotSpot虚拟机中，对象在内存中的布局分为三部分：对象头、实例数据、对齐填充。</p>
+<pre><code>1. 对象头：包括两部分：Mark Word、类型指针、数组长度(如果是数组类型)
+ 1. Mark Word：存储对象自身的运行时数据（哈希码、GC年龄、锁标志、持有的锁等）。被设计成非固定数据结构，根据对象状态占用内部空间。64位虚拟机占用8个字节。
+ 2. Class Poniter：对象指向它的类元数据的指针。虚拟机通过这个指针确定对象是哪个类的实例。开启指针压缩（-XX:+UseCompressedOops）占4个字节，未开启压缩占8个字节。
+ 3. length：数组长度，对于数组对象，对象头中必须有一块数据记录数组长度，因为JVM无法从数组的元数据确定数组的大小。也占用4字节。
+2. Instance Data：实例数据是对象真正存储的有效信息，就是代码中定义的各种类型的字段内容，包括从父类继承下来的和子类中定义的。
+3. Padding： HotSpot虚拟机的自动内存管理系统要求对象起始地址必须是8字节的整数倍。当对象的实例数据部分没有对齐，用对齐填充补全，连续空间会将读效率会更高。所以对齐填充不是必然存在的。
+</code></pre><h1 id="5-对象头具体包括什么？"><a href="#5-对象头具体包括什么？" class="headerlink" title="5. 对象头具体包括什么？"></a>5. 对象头具体包括什么？</h1><p>对象头包含Mark Word和Class Poniter。</p>
+<p>在OpenJDK的HotSpot源码<a href="http://hg.openjdk.java.net/jdk8/jdk8/hotspot/file/87ee5ee27509/src/share/vm/oops/markOop.hpp" target="_blank" rel="noopener">markOop.hpp</a> 中可以找到定义：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> SHARE_VM_OOPS_MARKOOP_HPP</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SHARE_VM_OOPS_MARKOOP_HPP</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">"oops/oop.hpp"</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// The markOop describes the header of an object.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// Note that the mark is not a real oop but just a word.</span></span><br><span class="line"><span class="comment">// It is placed in the oop hierarchy for historical reasons.</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// Bit-format of an object header (most significant first, big endian layout below):</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//  32 bits:</span></span><br><span class="line"><span class="comment">//  --------</span></span><br><span class="line"><span class="comment">//             hash:25 ------------&gt;| age:4    biased_lock:1 lock:2 (normal object)</span></span><br><span class="line"><span class="comment">//             JavaThread*:23 epoch:2 age:4    biased_lock:1 lock:2 (biased object)</span></span><br><span class="line"><span class="comment">//             size:32 ------------------------------------------&gt;| (CMS free block)</span></span><br><span class="line"><span class="comment">//             PromotedObject*:29 ----------&gt;| promo_bits:3 -----&gt;| (CMS promoted object)</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//  64 bits:</span></span><br><span class="line"><span class="comment">//  --------</span></span><br><span class="line"><span class="comment">//  unused:25 hash:31 --&gt;| unused:1   age:4    biased_lock:1 lock:2 (normal object)</span></span><br><span class="line"><span class="comment">//  JavaThread*:54 epoch:2 unused:1   age:4    biased_lock:1 lock:2 (biased object)</span></span><br><span class="line"><span class="comment">//  PromotedObject*:61 ---------------------&gt;| promo_bits:3 -----&gt;| (CMS promoted object)</span></span><br><span class="line"><span class="comment">//  size:64 -----------------------------------------------------&gt;| (CMS free block)</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">//  unused:25 hash:31 --&gt;| cms_free:1 age:4    biased_lock:1 lock:2 (COOPs &amp;&amp; normal object)</span></span><br><span class="line"><span class="comment">//  JavaThread*:54 epoch:2 cms_free:1 age:4    biased_lock:1 lock:2 (COOPs &amp;&amp; biased object)</span></span><br><span class="line"><span class="comment">//  narrowOop:32 unused:24 cms_free:1 unused:4 promo_bits:3 -----&gt;| (COOPs &amp;&amp; CMS promoted object)</span></span><br><span class="line"><span class="comment">//  unused:21 size:35 --&gt;| cms_free:1 unused:7 ------------------&gt;| (COOPs &amp;&amp; CMS free block)</span></span><br><span class="line"><span class="comment">//</span></span><br></pre></td></tr></table></figure>
+<h1 id="6-为什么堆内存到32G后，指针压缩会失效？"><a href="#6-为什么堆内存到32G后，指针压缩会失效？" class="headerlink" title="6. 为什么堆内存到32G后，指针压缩会失效？"></a>6. 为什么堆内存到32G后，指针压缩会失效？</h1><p>对象头中的Class Pointer默认占8个字节，开启-XX:+UseCompressedOops后，为了节省空间压缩为4个字节，4*8=32位表示可寻址4G个对象，在内存空间小于32G时，可以通过编码、解码方式进行优化，使得jvm可以支持更大的内存配置。当堆内存大于32G时，压缩指针参数会失效，会强制使用64位(即8字节)来对java对象寻址。</p>
+<p>32位操作系统可以寻址到多大内存 答：4g 因为 2^32=4 <em> 1024 </em> 1024=4g，那么64位寻址就更大了。</p>
+<p>用64位寻址，会给我们寻址带宽和对象引用造成负担。寄存器的寻址能力在32G左右，所以开启指针压缩和未开启指针压缩都会按64位进行寻址。</p>
+<p>一旦你越过那个神奇的30-32G的边界，指针就会切回普通对象的指针，每个对象的指针都变长了，就会使用更多的CPU内存带宽，也就是说你实际上失去了更多的内存。事实上当内存到达40-50GB的时候，有效内存才相当于使用内存对象指针压缩技术时候的32G内存。</p>
+<p>这段描述的意思就是说：即便你有足够的内存，也尽量不要超过32G，因为它浪费了内存，降低了CPU的性能，还要让GC应对大内存显得费时费力。</p>
+<h1 id="7-简述对象的分配过程"><a href="#7-简述对象的分配过程" class="headerlink" title="7. 简述对象的分配过程"></a>7. 简述对象的分配过程</h1><p>优先栈上分配，分析是否有对象逃逸。栈上分配对象，对象弹栈，对象生命周期结束，不需要GC介入，效率高。</p>
+<p>优先分配大对象，直接分配到老年代。</p>
+<p>优先给TLAB(Thread Local Allocation Buffer，线程本地分配缓存区)分配，因为多个线程都会同一块区域分配(抢内存，俗称指针碰撞)，TLAB其实是Eden区划分好的线程区域。</p>
+<p>再TLAB分配完成后，经历过一次YGC，垃圾对象直接回收，若改对象不是垃圾对象，年龄不够，复制到Surivor区，循环往复。直到年龄够大，会被放入老年代中。</p>
+<p><img src="http://qczr457kz.bkt.clouddn.com/imgs/doc/20200705001/1593940781933.png" alt="1593940781933"></p>
+<h1 id="8-Object-obj-new-Object-在内存中占用多少个字节？"><a href="#8-Object-obj-new-Object-在内存中占用多少个字节？" class="headerlink" title="8. Object obj = new Object()在内存中占用多少个字节？"></a>8. Object obj = new Object()在内存中占用多少个字节？</h1><p>普通对象开启指针压缩：Mark Word(8字节)+Class Pointer(4字节)+Padding(4字节) = 16 字节</p>
+<p>普通对象未开启指针压缩(含指针压缩失效)：Mark Word(8字节)+Class Pointer(8字节)+Padding(4字节) = 20 字节</p>
+<p>用代码查看内存布局：</p>
+<ol>
+<li><p>在pom中导入java对象布局依赖</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--  java对象布局依赖工具 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.openjdk.jol<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jol-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">version</span>&gt;</span>0.10<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<ol start="2">
+<li>编写代码</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.openjdk.jol.info.ClassLayout;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@projectName</span>: ObjectLayout</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@className</span>: com.java.ObjectLayoutDemo</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@description</span>: 对象布局演示</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span>: tong.li</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@createTime</span>: 2020/6/29 下午5:38</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@version</span>: v1.0</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ObjectLayoutDemo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">long</span> a;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">        Object obj = <span class="keyword">new</span> Object();</span><br><span class="line">        <span class="comment">// 打印空对象的内存布局，总共16个字节</span></span><br><span class="line">        System.out.println(ClassLayout.parseInstance(obj).toPrintable());</span><br><span class="line">        System.out.println(<span class="string">"--------------------------------------------------------------"</span>);</span><br><span class="line">        ObjectLayoutDemo old = <span class="keyword">new</span> ObjectLayoutDemo();</span><br><span class="line">        <span class="comment">// 打印有实例数据对象的内存布局，</span></span><br><span class="line">        <span class="comment">// 如果a是4个字节以下的数据类型，大小仍然保持16个字节，int类型(4个字节)不用填充，char类型(2个字节)，需要填充2个字节，</span></span><br><span class="line">        <span class="comment">// 如果是long:对象头12字节+8个字节=20，需要对齐(8的整数倍)=24</span></span><br><span class="line">        System.out.println(ClassLayout.parseInstance(old).toPrintable());</span><br><span class="line">        System.out.println(<span class="string">"--------------------------------------------------------------"</span>);</span><br><span class="line">        <span class="comment">// 打印数组(无数据)的内存布局，4+4+4+4(数组长度)=16，不需要补齐</span></span><br><span class="line">        <span class="keyword">int</span>[] array1 = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">0</span>];</span><br><span class="line">        System.out.println(ClassLayout.parseInstance(array1).toPrintable());</span><br><span class="line">        System.out.println(<span class="string">"--------------------------------------------------------------"</span>);</span><br><span class="line">        <span class="comment">// 打印数组(有数据)的内存布局</span></span><br><span class="line">        <span class="comment">// 16 + 2 × 4 = 24,不用补齐</span></span><br><span class="line">        <span class="keyword">int</span>[] array2 = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">2</span>];</span><br><span class="line">        System.out.println(ClassLayout.parseInstance(array2).toPrintable());</span><br><span class="line">        <span class="keyword">int</span>[] array3 = <span class="keyword">new</span> <span class="keyword">int</span>[<span class="number">3</span>];  </span><br><span class="line">        <span class="comment">// 16+3*4=28，补齐到32字节</span></span><br><span class="line">        System.out.println(ClassLayout.parseInstance(array3).toPrintable());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># WARNING: Unable to attach Serviceability Agent. You can try again with escalated privileges. Two options: a) use -Djol.tryWithSudo=true to try with sudo; b) echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope</span></span><br><span class="line"><span class="comment"># 前面8个字节是Mark Word，后面一个是Class Poniter，最后一个是内存对齐</span></span><br><span class="line">java.lang.Object object internals: </span><br><span class="line"> OFFSET  SIZE   TYPE DESCRIPTION                               VALUE</span><br><span class="line">      0     4        (object header)                           01 00 00 00 (00000001 00000000 00000000 00000000) (1)</span><br><span class="line">      4     4        (object header)                           00 00 00 00 (00000000 00000000 00000000 00000000) (0)</span><br><span class="line">      8     4        (object header)                           e5 01 00 f8 (11100101 00000001 00000000 11111000) (-134217243)</span><br><span class="line">     12     4        (loss due to the next object alignment)</span><br><span class="line">Instance size: 16 bytes</span><br><span class="line">Space losses: 0 bytes internal + 4 bytes external = 4 bytes total</span><br><span class="line"></span><br><span class="line">--------------------------------------------------------------</span><br><span class="line">com.fendan.house.entity.ObjectLayoutDemo object internals:</span><br><span class="line"> OFFSET  SIZE   TYPE DESCRIPTION                               VALUE</span><br><span class="line">      0     4        (object header)                           01 00 00 00 (00000001 00000000 00000000 00000000) (1)</span><br><span class="line">      4     4        (object header)                           00 00 00 00 (00000000 00000000 00000000 00000000) (0)</span><br><span class="line">      8     4        (object header)                           05 c1 00 f8 (00000101 11000001 00000000 11111000) (-134168315)</span><br><span class="line">     12     4        (alignment/padding gap)                  </span><br><span class="line">     16     8   long ObjectLayoutDemo.a                        0</span><br><span class="line">Instance size: 24 bytes</span><br><span class="line">Space losses: 4 bytes internal + 0 bytes external = 4 bytes total</span><br><span class="line"></span><br><span class="line">--------------------------------------------------------------</span><br><span class="line">[I object internals:</span><br><span class="line"> OFFSET  SIZE   TYPE DESCRIPTION                               VALUE</span><br><span class="line">      0     4        (object header)                           01 00 00 00 (00000001 00000000 00000000 00000000) (1)</span><br><span class="line">      4     4        (object header)                           00 00 00 00 (00000000 00000000 00000000 00000000) (0)</span><br><span class="line">      8     4        (object header)                           6d 01 00 f8 (01101101 00000001 00000000 11111000) (-134217363)</span><br><span class="line">     12     4        (object header)                           00 00 00 00 (00000000 00000000 00000000 00000000) (0)</span><br><span class="line">     16     0    int [I.&lt;elements&gt;                             N/A</span><br><span class="line">Instance size: 16 bytes</span><br><span class="line">Space losses: 0 bytes internal + 0 bytes external = 0 bytes total</span><br><span class="line"></span><br><span class="line">--------------------------------------------------------------</span><br><span class="line">[I object internals:</span><br><span class="line"> OFFSET  SIZE   TYPE DESCRIPTION                               VALUE</span><br><span class="line">      0     4        (object header)                           01 00 00 00 (00000001 00000000 00000000 00000000) (1)</span><br><span class="line">      4     4        (object header)                           00 00 00 00 (00000000 00000000 00000000 00000000) (0)</span><br><span class="line">      8     4        (object header)                           6d 01 00 f8 (01101101 00000001 00000000 11111000) (-134217363)</span><br><span class="line">     12     4        (object header)                           02 00 00 00 (00000010 00000000 00000000 00000000) (2)</span><br><span class="line">     16     8    int [I.&lt;elements&gt;                             N/A</span><br><span class="line">Instance size: 24 bytes</span><br><span class="line">Space losses: 0 bytes internal + 0 bytes external = 0 bytes total</span><br><span class="line"></span><br><span class="line">[I object internals:</span><br><span class="line"> OFFSET  SIZE   TYPE DESCRIPTION                               VALUE</span><br><span class="line">      0     4        (object header)                           01 00 00 00 (00000001 00000000 00000000 00000000) (1)</span><br><span class="line">      4     4        (object header)                           00 00 00 00 (00000000 00000000 00000000 00000000) (0)</span><br><span class="line">      8     4        (object header)                           6d 01 00 f8 (01101101 00000001 00000000 11111000) (-134217363)</span><br><span class="line">     12     4        (object header)                           03 00 00 00 (00000011 00000000 00000000 00000000) (3)</span><br><span class="line">     16    12    int [I.&lt;elements&gt;                             N/A</span><br><span class="line">     28     4        (loss due to the next object alignment)</span><br><span class="line">Instance size: 32 bytes</span><br><span class="line">Space losses: 0 bytes internal + 4 bytes external = 4 bytes total</span><br></pre></td></tr></table></figure>
+<h1 id="9-对象怎么定位？"><a href="#9-对象怎么定位？" class="headerlink" title="9. 对象怎么定位？"></a>9. 对象怎么定位？</h1><ul>
+<li>间接句柄方式：方便GC，GC复制的时候不需要移动这个句柄指针。</li>
+<li>直接指针方式：访问效率高，JaHotSpot虚拟机默认使用对象定位方式。</li>
+</ul>
+<h1 id="10-为什么HotSpot不使用C-对象来代表Java对象？"><a href="#10-为什么HotSpot不使用C-对象来代表Java对象？" class="headerlink" title="10. 为什么HotSpot不使用C++对象来代表Java对象？"></a>10. 为什么HotSpot不使用C++对象来代表Java对象？</h1><p>HotSpot虚拟机定义了OOP/Class二元模型。Java对象里面除过有个普通对象，还有一个字节码的类对象。</p>
+<p>每个C++对象里面有虚函数表。若用C++对象直接代表Java对象，Java都要装载这个虚函数表，内存占用太大，所以不采用。</p>
+<h1 id="11-Class对象是在堆还是在方法区？"><a href="#11-Class对象是在堆还是在方法区？" class="headerlink" title="11. Class对象是在堆还是在方法区？"></a>11. Class对象是在堆还是在方法区？</h1><p>Class对象是存放在堆区的，不是方法区。</p>
+<p>Class类的元数据(方法代码、变量名、方法名、访问权限、返回值)都在方法区(元空间或永久带)，但是Class类的实例对象是在堆区的。</p>
+<p>当我们加载一个类时，实际上,Method Area区有个C++对象InstanceClassOop指向堆中的类对象。</p>
+    </div>
+    
+        <div class="reward" ontouchstart="">
+    <div class="reward-wrap">赏
+        <div class="reward-box">
+            
+                <span class="reward-type">
+                    <img class="alipay" src="/about/alipay.png"><b>支付宝打赏</b>
+                </span>
+            
+            
+                <span class="reward-type">
+                    <img class="wechat" src="/about/weixin.png"><b>微信打赏</b>
+                </span>
+            
+        </div>
+    </div>
+    <p class="reward-tip">请作者喝杯咖啡吧</p>
+
+    <!-- 社会分享工具 -->
+    <div class="bdsharebuttonbox">
+         <a href="#" class="bds_more" data-cmd="more"></a>
+         <a href="#" class="bds_qzone" data-cmd="qzone"></a><a href="#" class="bds_tsina" data-cmd="tsina"></a>
+         <a href="#" class="bds_tqq" data-cmd="tqq"></a><a href="#" class="bds_renren" data-cmd="renren"></a>
+         <a href="#" class="bds_weixin" data-cmd="weixin"></a>
+    </div>
+     <script>
+        window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+     </script>
+</div>
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">彤哥哥</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+        <a href="/2020/05/24/GC调优基础之必备知识/" class="next-post btn btn-default" title="GC调优基础之必备知识">
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">GC调优基础之必备知识</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'wA3iNQOiAuhrRJkNgIjirA8f-gzGzoHsz',
+            appKey: 'iGL0JyEnJQ8HIMlLd4Sm0oOp',
+            placeholder: '说点什么吧',
+            notify: false,
+            verify: false,
+            avatar: 'mm',
+            meta: 'nick,mail,link'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: 'zh-CN'.toLowerCase()
+        })
+    </script>
+    </div>
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-你了解Java的Object类吗？"><span class="toc-text">1. 你了解Java的Object类吗？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-解释一下对象的创建过程？"><span class="toc-text">2. 解释一下对象的创建过程？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-DCL单例到底需不需要加volatite？"><span class="toc-text">3. DCL单例到底需不需要加volatite？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-简述对象在内存中的布局"><span class="toc-text">4. 简述对象在内存中的布局</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-对象头具体包括什么？"><span class="toc-text">5. 对象头具体包括什么？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-为什么堆内存到32G后，指针压缩会失效？"><span class="toc-text">6. 为什么堆内存到32G后，指针压缩会失效？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#7-简述对象的分配过程"><span class="toc-text">7. 简述对象的分配过程</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#8-Object-obj-new-Object-在内存中占用多少个字节？"><span class="toc-text">8. Object obj = new Object()在内存中占用多少个字节？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#9-对象怎么定位？"><span class="toc-text">9. 对象怎么定位？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#10-为什么HotSpot不使用C-对象来代表Java对象？"><span class="toc-text">10. 为什么HotSpot不使用C++对象来代表Java对象？</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#11-Class对象是在堆还是在方法区？"><span class="toc-text">11. Class对象是在堆还是在方法区？</span></a></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+        访问量:
+        <strong id="busuanzi_value_site_pv">
+            <i class="fa fa-spinner fa-spin"></i>
+        </strong>
+        &nbsp; | &nbsp;
+        访客数:
+        <strong id="busuanzi_value_site_uv">
+            <i class="fa fa-spinner fa-spin"></i>
+        </strong>
+    
+</div>
+            </div>
+            <div>
+                <!-- 服务器运行时间统计 -->
+                <span id="sitetime"></span>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2020
+                </span> |
+                <span>
+                    Powered by <a href="//ltyeamin.github.io" class="copyright-links" target="_blank" rel="nofollow">litong</a>
+                </span> |
+                <span>
+                    Blog by <a href="//ltyeamin.github.io" class="copyright-links" target="_blank" rel="nofollow">彤哥哥</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="/assets/tagcanvas.min.js?rev=2.9"></script>
+    <script>
+        var tagOption = {
+            textColour: '#e67e22', // 字体颜色
+            outlineMethod: 'block', // 选中模式
+            outlineColour: '  #FDF5E6', // 选中模式的颜色
+            interval: 30 || 30, // 动画帧之间的时间间隔，值越大，转动幅度越大
+            textHeight: 13,
+            outlineRadius: 3,
+            freezeActive: true || '', // 选中的标签是否继续滚动
+            frontSelect: true || '', // 不选标签云后部的标签
+            initial: [0.1, -0.1],
+            depth: 0.5,
+            decel: 0.95,
+            maxSpeed: 0.03,
+            reverse: true || '', // 是否反向触发
+            fadeIn: 500, // 进入动画时间
+            wheelZoom: true || '' // 是否启用鼠标滚轮
+        }
+        TagCanvas.Start('tag-cloud-3d','',tagOption);
+    </script>
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+<!-- 页面点击小红心，在末尾添加，避免找不到 -->
+<script type="text/javascript" src="/js/love.js"></script>
+
+<!-- DaoVoice即时通讯工具 -->
+
+ <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "10b503a1"
+    });
+  daovoice('update');
+  </script>
+
+
+<!-- 音频播放 
+<link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+-->
+
+<!-- 服务器运行时间统计 -->
+<script language="javascript">
+        function siteTime(){
+          window.setTimeout("siteTime()", 1000);
+          var seconds = 1000;
+          var minutes = seconds * 60;
+          var hours = minutes * 60;
+          var days = hours * 24;
+          var years = days * 365;
+          var today = new Date();
+          var todayYear = today.getFullYear();
+          var todayMonth = today.getMonth()+1;
+          var todayDate = today.getDate();
+          var todayHour = today.getHours();
+          var todayMinute = today.getMinutes();
+          var todaySecond = today.getSeconds();
+          /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+          year - 作为date对象的年份，为4位年份值
+          month - 0-11之间的整数，做为date对象的月份
+          day - 1-31之间的整数，做为date对象的天数
+          hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+          minutes - 0-59之间的整数，做为date对象的分钟数
+          seconds - 0-59之间的整数，做为date对象的秒数
+          microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+          var t1 = Date.UTC(2016,12,1,00,00,00); //北京时间2016-12-1 00:00:00
+          var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+          var diff = t2-t1;
+          var diffYears = Math.floor(diff/years);
+          var diffDays = Math.floor((diff/days)-diffYears*365);
+          var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+          var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+          var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+          document.getElementById("sitetime").innerHTML=" 本站已运行 "+ diffYears+" 年 "+ diffDays+" 天 "+diffHours+" 小时 "+diffMinutes+" 分 "+diffSeconds+" 秒";
+        }
+        siteTime();
+</script>
+</body>
