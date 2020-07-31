@@ -216,7 +216,7 @@
 </ol>
 </li>
 </ul>
-<p><img src="http://qczr457kz.bkt.clouddn.com/imgs/doc/20200229001/lifecycle.png" alt="Vue实例生命周期"></p>
+<p><img src="https://gitee.com/ltalex/cdn/raw/master/imgs/2020/07/20200731163211.png" alt="Vue实例生命周期"></p>
 <h1 id="2-Vue组件"><a href="#2-Vue组件" class="headerlink" title="2. Vue组件"></a>2. Vue组件</h1><h2 id="2-1-什么是组件"><a href="#2-1-什么是组件" class="headerlink" title="2.1 什么是组件"></a>2.1 什么是组件</h2><p> 组件的出现，就是为了拆分Vue实例的代码量的，能够让我们以不同的组件，来划分不同的功能模块，将来我们需要什么样的功能，就可以去调用对应的组件即可；<br>组件化和模块化的不同：</p>
 <ul>
 <li>模块化： 是从代码逻辑的角度进行划分的；方便代码分层开发，保证每个功能模块的职能单一；</li>
@@ -404,7 +404,7 @@
 <li><strong>actions</strong>，响应在 <strong>view</strong> 上的用户输入导致的状态变化。</li>
 </ul>
 <p>以下是一个表示“单向数据流”理念的简单示意：</p>
-<p><img src="https://vuex.vuejs.org/flow.png" alt="单向数据流"></p>
+<p><img src="https://gitee.com/ltalex/cdn/raw/master/imgs/2020/07/20200731163332.png" alt="单向数据流"></p>
 <p>但是，当我们的应用遇到<strong>多个组件共享状态</strong>时，单向数据流的简洁性很容易被破坏：</p>
 <ul>
 <li>多个视图依赖于同一状态。</li>
@@ -415,7 +415,7 @@
 <p>通过定义和隔离状态管理中的各种概念并通过强制规则维持视图和状态间的独立性，我们的代码将会变得更结构化且易维护。</p>
 <p>这就是 Vuex 背后的基本思想，借鉴了 <a href="https://facebook.github.io/flux/docs/overview" target="_blank" rel="noopener">Flux</a>、<a href="http://redux.js.org/" target="_blank" rel="noopener">Redux</a> 和 <a href="https://guide.elm-lang.org/architecture/" target="_blank" rel="noopener">The Elm Architecture</a>。与其他模式不同的是，Vuex 是专门为 Vue.js 设计的状态管理库，以利用 Vue.js 的细粒度数据响应机制来进行高效的状态更新。</p>
 <p>如果你想交互式地学习 Vuex，可以看这个 <a href="https://scrimba.com/g/gvuex" target="_blank" rel="noopener">Scrimba 上的 Vuex 课程</a>，它将录屏和代码试验场混合在了一起，你可以随时暂停并尝试。</p>
-<p><img src="https://vuex.vuejs.org/vuex.png" alt="交互图"></p>
+<p><img src="https://gitee.com/ltalex/cdn/raw/master/imgs/2020/07/20200731163338.png" alt="交互图"></p>
 <h2 id="4-3-什么时候用Vuex"><a href="#4-3-什么时候用Vuex" class="headerlink" title="4.3 什么时候用Vuex"></a>4.3 什么时候用Vuex</h2><p>Vuex 可以帮助我们管理共享状态，并附带了更多的概念和框架。这需要对短期和长期效益进行权衡。</p>
 <p>如果您不打算开发大型单页应用，使用 Vuex 可能是繁琐冗余的。确实是如此——如果您的应用够简单，您最好不要使用 Vuex。一个简单的 <a href="https://cn.vuejs.org/v2/guide/state-management.html#%E7%AE%80%E5%8D%95%E7%8A%B6%E6%80%81%E7%AE%A1%E7%90%86%E8%B5%B7%E6%AD%A5%E4%BD%BF%E7%94%A8" target="_blank" rel="noopener">store 模式</a>就足够您所需了。但是，如果您需要构建一个中大型单页应用，您很可能会考虑如何更好地在组件外部管理状态，Vuex 将会成为自然而然的选择。引用 Redux 的作者 Dan Abramov 的话说就是：</p>
 <blockquote>

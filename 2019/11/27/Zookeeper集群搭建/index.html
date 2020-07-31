@@ -193,13 +193,13 @@ Zookeeper安装包下载，这里我选择3.5.6进行下载
     </div>
     
     <div class="post-body post-content">
-        <h2 id="1-准备工作"><a href="#1-准备工作" class="headerlink" title="1. 准备工作"></a>1. 准备工作</h2><ol>
+        <h1 id="1-准备工作"><a href="#1-准备工作" class="headerlink" title="1. 准备工作"></a>1. 准备工作</h1><ol>
 <li>安装JDK</li>
 <li>Zookeeper<a href="https://archive.apache.org/dist/zookeeper/" target="_blank" rel="noopener">安装包下载</a>，这里我选择3.5.6进行下载</li>
 <li>准备三台机器，分别是192.168.5.1,192.168.5.100,192.168.5.101</li>
 <li>将zookeeper的安装包上传到这三台机器相同的目录上(方便管理)</li>
 </ol>
-<h2 id="2-开始搭建"><a href="#2-开始搭建" class="headerlink" title="2. 开始搭建"></a>2. 开始搭建</h2><h4 id="1）配置集群"><a href="#1）配置集群" class="headerlink" title="1）配置集群"></a>1）配置集群</h4><p>   在三台机器依次进行如下操作：</p>
+<h1 id="2-开始搭建"><a href="#2-开始搭建" class="headerlink" title="2. 开始搭建"></a>2. 开始搭建</h1><h2 id="2-1-配置集群"><a href="#2-1-配置集群" class="headerlink" title="2.1 配置集群"></a>2.1 配置集群</h2><p>   在三台机器依次进行如下操作：</p>
 <ol>
 <li><p>解压Zookeeper，并创建data目录，另外将conf下的zoo_sample.cfg文件复制并改名为zoo.cfg</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tar -xzvf apache-zookeeper-3.5.6-bin.tar.gz</span><br><span class="line">cd apache-zookeeper-3.5.6-bin/</span><br><span class="line">mkdir data</span><br><span class="line">cp conf/zoo_sample.cfg conf/zoo.cfg</span><br></pre></td></tr></table></figure>
@@ -213,11 +213,11 @@ Zookeeper安装包下载，这里我选择3.5.6进行下载
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 在192.168.5.100执行</span></span><br><span class="line">touch data/myid &amp;&amp; echo 1 &gt; data/myid</span><br><span class="line"><span class="meta">#</span><span class="bash"> 在192.168.5.101执行</span></span><br><span class="line">touch data/myid &amp;&amp; echo 2 &gt; data/myid</span><br><span class="line"><span class="meta">#</span><span class="bash"> 在192.168.5.1执行</span></span><br><span class="line">touch data/myid &amp;&amp; echo 3 &gt; data/myid</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<h4 id="2）启动集群"><a href="#2）启动集群" class="headerlink" title="2）启动集群"></a>2）启动集群</h4><p>启动集群就是分别启动每个实例,即在三台启动Zookeeper：</p>
+<h2 id="2-2-启动集群"><a href="#2-2-启动集群" class="headerlink" title="2.2 启动集群"></a>2.2 启动集群</h2><p>启动集群就是分别启动每个实例,即在三台启动Zookeeper：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bin/zkServer.sh start</span><br></pre></td></tr></table></figure>
 <p>启动成功后会显示STARTED，如下：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[litong@localhost apache-zookeeper-3.5.6-bin]# ./bin/zkServer.sh start</span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /usr/local/bin/apache-zookeeper-3.5.6-bin/bin/../conf/zoo.cfg</span><br><span class="line">Starting zookeeper ... STARTED</span><br></pre></td></tr></table></figure>
-<h4 id="3）集群验证"><a href="#3）集群验证" class="headerlink" title="3）集群验证"></a>3）集群验证</h4><p>启动成功后，我们可以在三台机器上输入以下命令即可查询集群状态：</p>
+<h2 id="2-3-集群验证"><a href="#2-3-集群验证" class="headerlink" title="2.3 集群验证"></a>2.3 集群验证</h2><p>启动成功后，我们可以在三台机器上输入以下命令即可查询集群状态：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./bin/zkServer.sh status</span><br></pre></td></tr></table></figure>
 <p>192.168.5.100机器的输出结果：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost apache-zookeeper-3.5.6-bin]# ./bin/zkServer.sh status</span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /usr/local/bin/apache-zookeeper-3.5.6-bin/bin/../conf/zoo.cfg</span><br><span class="line">Client port found: 2181. Client address: localhost.</span><br><span class="line">Mode: follower</span><br></pre></td></tr></table></figure>
@@ -226,8 +226,10 @@ Zookeeper安装包下载，这里我选择3.5.6进行下载
 <p>192.168.5.1机器的输出结果：</p>
 <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">litong@LT:/media/litong/软件/programs/tools/apache-zookeeper-3.5.6-bin/bin$ ./zkServer.sh status</span><br><span class="line">ZooKeeper JMX enabled by default</span><br><span class="line">Using config: /media/litong/软件/programs/tools/apache-zookeeper-3.5.6-bin/bin/../conf/zoo.cfg</span><br><span class="line">Client port found: 2181. Client address: localhost.</span><br><span class="line">Mode: follower</span><br></pre></td></tr></table></figure>
 <p>从三台机器的状态可以查看，192.168.5.101机器上显示Mode: leader，是主节点(master)，其他两台机器上显示Mode: follower，则是两个slave。</p>
-<h2 id="3-参考文档"><a href="#3-参考文档" class="headerlink" title="3. 参考文档"></a>3. 参考文档</h2><p>​    1. <a href="https://zookeeper.apache.org/" target="_blank" rel="noopener">Zookeeper主页</a></p>
-<p>​    2. <a href="https://zookeeper.apache.org/doc/r3.5.6/" target="_blank" rel="noopener">Zookeeper文档</a></p>
+<h1 id="3-参考文档"><a href="#3-参考文档" class="headerlink" title="3. 参考文档"></a>3. 参考文档</h1><ul>
+<li><a href="https://zookeeper.apache.org/" target="_blank" rel="noopener">Zookeeper主页</a></li>
+<li><a href="https://zookeeper.apache.org/doc/r3.5.6/" target="_blank" rel="noopener">Zookeeper文档</a></li>
+</ul>
     </div>
     
         <div class="reward" ontouchstart="">
@@ -315,7 +317,7 @@ Zookeeper安装包下载，这里我选择3.5.6进行下载
     <div class="widget">
         <h3 class="title">文章目录</h3>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-准备工作"><span class="toc-text">1. 准备工作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-开始搭建"><span class="toc-text">2. 开始搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1）配置集群"><span class="toc-text">1）配置集群</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2）启动集群"><span class="toc-text">2）启动集群</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3）集群验证"><span class="toc-text">3）集群验证</span></a></li></ol></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#3-参考文档"><span class="toc-text">3. 参考文档</span></a></li>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-准备工作"><span class="toc-text">1. 准备工作</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-开始搭建"><span class="toc-text">2. 开始搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-配置集群"><span class="toc-text">2.1 配置集群</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-启动集群"><span class="toc-text">2.2 启动集群</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-集群验证"><span class="toc-text">2.3 集群验证</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-参考文档"><span class="toc-text">3. 参考文档</span></a></li></ol>
         
     </div>
 </aside>

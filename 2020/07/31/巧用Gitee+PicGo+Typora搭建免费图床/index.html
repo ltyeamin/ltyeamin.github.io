@@ -1,0 +1,472 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="彤哥哥的博客">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://ltyeamin.github.io">
+    <!--SEO-->
+
+    <meta name="keywords" content="实用工具及技巧">
+
+
+    <meta name="description" content="1. 前言最近在用七牛云进行存储文件时，我发现上传图片的会被压缩，图片分辨率压缩后会降低，将图片网络地址引入到博客中，图片内容辨识度也变得很低。
+具体的图片被压缩原因是什么，再跟七牛云的客服和工...">
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>巧用Gitee+PicGo+Typora搭建免费图床 | 彤哥哥的博客</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="彤哥哥的博客" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+<script src="/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+<link rel="stylesheet" href="/css/calendar.css?rev=@@hash">
+<link rel="stylesheet" href="/css/variable.css?rev=@@hash">
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?ebfd000c0e7cc1ee84a00f01d419b1e2";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header" style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)">
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="YeaMin">
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                 <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://ltyeamin.github.io">彤哥哥的博客</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa"></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/backend/"><i class="fa"></i>后端</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/frontend/"><i class="fa"></i>前端</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/ops/"><i class="fa"></i>运维</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/database/"><i class="fa"></i>数据库</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/algorithm/"><i class="fa"></i>算法</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/pm/"><i class="fa"></i>项目管理</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href=""><i class="fa"></i>自媒体</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/others/"><i class="fa"></i>生活</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/about"><i class="fa /favicon.ico"></i>关于</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="巧用Gitee+PicGo+Typora搭建免费图床">
+            
+	            巧用Gitee+PicGo+Typora搭建免费图床
+            
+        </h1>
+        <div class="post-meta">
+    
+        <span class="categories-meta fa-wrap">
+            <i class="fa fa-folder-open-o"></i>
+            <a class="category-link" href="/categories/ops/">ops</a>
+        </span>
+    
+
+    
+        <span class="fa-wrap">
+            <i class="fa fa-tags"></i>
+            <span class="tags-meta">
+                
+                    <a class="tag-link" href="/tags/实用工具及技巧/">实用工具及技巧</a>
+                
+            </span>
+        </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2020/07/31</span>
+        </span>
+        
+            <span class="fa-wrap">
+                <i class="fa fa-eye"></i>
+                <span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    
+</div>
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <h1 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h1><p>最近在用七牛云进行存储文件时，我发现上传图片的会被压缩，图片分辨率压缩后会降低，将图片网络地址引入到博客中，图片内容辨识度也变得很低。</p>
+<p>具体的图片被压缩原因是什么，再跟七牛云的客服和工程师进行短暂的<a href="https://support.qiniu.com/tickets/221000" target="_blank" rel="noopener">沟通</a>，了解到七牛云对象存储的一些限制：</p>
+<ol>
+<li>未绑定国内备案域名的对象存储空间,由于测试域名的限制，默认开启了忽略url参数设置。即用测试域名访问到的图片会被压缩。</li>
+<li>已绑定国内备案域名的对象存储空间,可以在存储空间设置里关闭忽略url参数，即不压缩。</li>
+<li>对于海外未备案域名,七牛CDN可提供在纯海外区域(不含中国大陆)的加速访问。图片也能关闭忽略url参数,但是只能海外网络访问,中国大陆不支持访问。</li>
+</ol>
+<p>当你写博时时，遇到以下类似问题而束手无策时，搭建免费图床可以帮助你解决：</p>
+<ol>
+<li>markdown插图流程繁琐：截图保存-&gt;图片上传到网络服务器-&gt;复制网络图片地址-&gt;插图到markdown。</li>
+<li>阿里云、腾讯云、七牛云以及其他对象存储的服务提供商有限制，没钱或者懒得折腾，可以利用现有的免费资源来解决问题。</li>
+<li>优化博客，对静态资源进行CDN加速，若hexo博客在github上托管，访问速度会很慢，将图片转移到国内开源仓库的码云是个不错的选择。</li>
+</ol>
+<h1 id="2-配置环境"><a href="#2-配置环境" class="headerlink" title="2. 配置环境"></a>2. 配置环境</h1><h2 id="2-1-Gitee仓库配置"><a href="#2-1-Gitee仓库配置" class="headerlink" title="2.1 Gitee仓库配置"></a>2.1 Gitee仓库配置</h2><ol>
+<li><p>创建仓库</p>
+<p><img src="https://gitee.com/ltalex/cdn/raw/master/imgs/2020/07/20200731115026.png" alt=""></p>
+<blockquote>
+<p>注意: 作为图床的仓库，一定不能勾掉管理界面的<code>在线编辑 是否允许仓库文件在线编辑</code>选 项，否则使用PicGo管理的时候会导致操作被403 Forbidden。</p>
+</blockquote>
+</li>
+</ol>
+<ol start="2">
+<li><p>创建<a href="https://gitee.com/profile/personal_access_tokens/new" target="_blank" rel="noopener">私人令牌</a>，使<code>PicGo</code>对仓库具有访问并更新的权限。</p>
+<p><img src="https://gitee.com/ltalex/cdn/raw/master/imgs/2020/07/20200731115734.png" alt="image-20200731115734387"></p>
+<blockquote>
+<p>注意: 私有令牌一旦提交，会以弹窗的形式告诉你token，请尽快复制，关闭窗口后无法找回，必须重新生成。</p>
+</blockquote>
+</li>
+</ol>
+<h2 id="2-2-PicGo图床工具配置"><a href="#2-2-PicGo图床工具配置" class="headerlink" title="2.2 PicGo图床工具配置"></a>2.2 PicGo图床工具配置</h2><ol>
+<li><p><a href="https://github.com/Molunerfinn/PicGo/releases" target="_blank" rel="noopener">下载</a>并安装PicGo软件</p>
+</li>
+<li><p>检查是否有node与npm环境，若没有，请先移步<a href="http://www.baidu.com/link?url=55wdkUpdXP65DVPaFk6pnHTbbBdhcO1YMyaTfY1gd0C" target="_blank" rel="noopener"><strong>node</strong>js官网</a>安装node环境，确保node和npm环境没问题。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">C:\Users\LT&gt;node -v</span><br><span class="line">v12.13.0</span><br><span class="line">C:\Users\LT&gt;npm -v</span><br><span class="line">6.12.0</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>安装PicGo gitee-uploader插件。</p>
+<p><img src="https://gitee.com/ltalex/cdn/raw/master/imgs/2020/07/20200731113727.png" alt="image-20200731113727771"></p>
+</li>
+<li><p>插件配置。</p>
+<p><img src="https://gitee.com/ltalex/cdn/raw/master/imgs/2020/07/20200731114428.png" alt="image-20200731114428370"></p>
+</li>
+</ol>
+<ol start="5">
+<li><p>复制一个图片到剪贴板，按Ctrl+Shift+P快捷键快速上传或者在左侧菜单上传区进行上传测试。</p>
+<p><img src="https://gitee.com/ltalex/cdn/raw/master/imgs/2020/07/20200731113617.png" alt="image-20200731113617587"></p>
+</li>
+</ol>
+<h2 id="2-3-Markdown编辑器配置"><a href="#2-3-Markdown编辑器配置" class="headerlink" title="2.3 Markdown编辑器配置"></a>2.3 Markdown编辑器配置</h2><p>我这里使用<a href="https://www.typora.io/" target="_blank" rel="noopener">Typora</a>当作MarkDown编辑器。所以这里我只介绍Typora与PicGo的配合使用，若读者使用其他Markdown编辑器，请自行研究。</p>
+<p>Typora与PicGo配合使用也很简单，只需要打开Typora文件-&gt;偏好设置-&gt;图形设置一下就可以。</p>
+<p><img src="https://gitee.com/ltalex/cdn/raw/master/imgs/2020/07/20200731121033.png" alt="image-20200731121033635"></p>
+<p>至此我们就完成了Typora的设置，只要我们截图到粘贴板的图片，直接复制到Typora编辑器里，会默认上传到码云。</p>
+<h1 id="3-参考资料"><a href="#3-参考资料" class="headerlink" title="3. 参考资料"></a>3. 参考资料</h1><ul>
+<li><a href="https://gitee.com/" target="_blank" rel="noopener">码云</a></li>
+<li><a href="http://www.baidu.com/link?url=55wdkUpdXP65DVPaFk6pnHTbbBdhcO1YMyaTfY1gd0C" target="_blank" rel="noopener"><strong>node</strong>js官网</a></li>
+<li><a href="https://github.com/Molunerfinn/PicGo" target="_blank" rel="noopener">PicGo</a></li>
+<li><a href="https://www.typora.io/" target="_blank" rel="noopener">Typora</a></li>
+</ul>
+    </div>
+    
+        <div class="reward" ontouchstart="">
+    <div class="reward-wrap">赏
+        <div class="reward-box">
+            
+                <span class="reward-type">
+                    <img class="alipay" src="/about/alipay.png"><b>支付宝打赏</b>
+                </span>
+            
+            
+                <span class="reward-type">
+                    <img class="wechat" src="/about/weixin.png"><b>微信打赏</b>
+                </span>
+            
+        </div>
+    </div>
+    <p class="reward-tip">请作者喝杯咖啡吧</p>
+
+    <!-- 社会分享工具 -->
+    <div class="bdsharebuttonbox">
+         <a href="#" class="bds_more" data-cmd="more"></a>
+         <a href="#" class="bds_qzone" data-cmd="qzone"></a><a href="#" class="bds_tsina" data-cmd="tsina"></a>
+         <a href="#" class="bds_tqq" data-cmd="tqq"></a><a href="#" class="bds_renren" data-cmd="renren"></a>
+         <a href="#" class="bds_weixin" data-cmd="weixin"></a>
+    </div>
+     <script>
+        window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+     </script>
+</div>
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">彤哥哥</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+        <a href="/2020/07/29/【MySQL高级实战】-索引与存储引擎学习指南/" class="next-post btn btn-default" title="【MySQL高级实战】-索引与存储引擎学习指南">
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">【MySQL高级实战】-索引与存储引擎学习指南</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'wA3iNQOiAuhrRJkNgIjirA8f-gzGzoHsz',
+            appKey: 'iGL0JyEnJQ8HIMlLd4Sm0oOp',
+            placeholder: '说点什么吧',
+            notify: false,
+            verify: false,
+            avatar: 'mm',
+            meta: 'nick,mail,link'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: 'zh-CN'.toLowerCase()
+        })
+    </script>
+    </div>
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-前言"><span class="toc-text">1. 前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-配置环境"><span class="toc-text">2. 配置环境</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-Gitee仓库配置"><span class="toc-text">2.1 Gitee仓库配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-PicGo图床工具配置"><span class="toc-text">2.2 PicGo图床工具配置</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-Markdown编辑器配置"><span class="toc-text">2.3 Markdown编辑器配置</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-参考资料"><span class="toc-text">3. 参考资料</span></a></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+        访问量:
+        <strong id="busuanzi_value_site_pv">
+            <i class="fa fa-spinner fa-spin"></i>
+        </strong>
+        &nbsp; | &nbsp;
+        访客数:
+        <strong id="busuanzi_value_site_uv">
+            <i class="fa fa-spinner fa-spin"></i>
+        </strong>
+    
+</div>
+            </div>
+            <div>
+                <!-- 服务器运行时间统计 -->
+                <span id="sitetime"></span>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2020
+                </span> |
+                <span>
+                    Powered by <a href="//ltyeamin.github.io" class="copyright-links" target="_blank" rel="nofollow">litong</a>
+                </span> |
+                <span>
+                    Blog by <a href="//ltyeamin.github.io" class="copyright-links" target="_blank" rel="nofollow">彤哥哥</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="/assets/tagcanvas.min.js?rev=2.9"></script>
+    <script>
+        var tagOption = {
+            textColour: '#e67e22', // 字体颜色
+            outlineMethod: 'block', // 选中模式
+            outlineColour: '  #FDF5E6', // 选中模式的颜色
+            interval: 30 || 30, // 动画帧之间的时间间隔，值越大，转动幅度越大
+            textHeight: 13,
+            outlineRadius: 3,
+            freezeActive: true || '', // 选中的标签是否继续滚动
+            frontSelect: true || '', // 不选标签云后部的标签
+            initial: [0.1, -0.1],
+            depth: 0.5,
+            decel: 0.95,
+            maxSpeed: 0.03,
+            reverse: true || '', // 是否反向触发
+            fadeIn: 500, // 进入动画时间
+            wheelZoom: true || '' // 是否启用鼠标滚轮
+        }
+        TagCanvas.Start('tag-cloud-3d','',tagOption);
+    </script>
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+<!-- 页面点击小红心，在末尾添加，避免找不到 -->
+<script type="text/javascript" src="/js/love.js"></script>
+
+<!-- DaoVoice即时通讯工具 -->
+
+ <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "10b503a1"
+    });
+  daovoice('update');
+  </script>
+
+
+<!-- 音频播放 
+<link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+-->
+
+<!-- 服务器运行时间统计 -->
+<script language="javascript">
+        function siteTime(){
+          window.setTimeout("siteTime()", 1000);
+          var seconds = 1000;
+          var minutes = seconds * 60;
+          var hours = minutes * 60;
+          var days = hours * 24;
+          var years = days * 365;
+          var today = new Date();
+          var todayYear = today.getFullYear();
+          var todayMonth = today.getMonth()+1;
+          var todayDate = today.getDate();
+          var todayHour = today.getHours();
+          var todayMinute = today.getMinutes();
+          var todaySecond = today.getSeconds();
+          /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+          year - 作为date对象的年份，为4位年份值
+          month - 0-11之间的整数，做为date对象的月份
+          day - 1-31之间的整数，做为date对象的天数
+          hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+          minutes - 0-59之间的整数，做为date对象的分钟数
+          seconds - 0-59之间的整数，做为date对象的秒数
+          microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+          var t1 = Date.UTC(2016,12,1,00,00,00); //北京时间2016-12-1 00:00:00
+          var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+          var diff = t2-t1;
+          var diffYears = Math.floor(diff/years);
+          var diffDays = Math.floor((diff/days)-diffYears*365);
+          var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+          var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+          var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+          document.getElementById("sitetime").innerHTML=" 本站已运行 "+ diffYears+" 年 "+ diffDays+" 天 "+diffHours+" 小时 "+diffMinutes+" 分 "+diffSeconds+" 秒";
+        }
+        siteTime();
+</script>
+</body>

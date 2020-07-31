@@ -188,7 +188,7 @@
             
             
             <p class="fa fa-exclamation-triangle warning">
-                本文于<strong>776</strong>天之前发表，文中内容可能已经过时
+                本文于<strong>780</strong>天之前发表，文中内容可能已经过时
             </p>
         
     </div>
@@ -203,22 +203,22 @@
 <li><p>生产者</p>
 <p>发送消息的程序是生产者。</p>
 <p>官网上青色椭圆P则标识消息生产者。</p>
-<p><img src="http://image.chenyongjun.vip/rabbitmq_producer.png" alt="img"></p>
+<p><img src="https://gitee.com/ltalex/cdn/raw/master/imgs/2020/07/20200731173616.png" alt="img"></p>
 </li>
 <li><p>队列</p>
 <p>队列是RabbitMQ中的邮箱的名称。虽然消息流经RabbitMQ和您的应用程序，但它们<strong>只能存储在队列中</strong>。队列只受主机的内存和磁盘限制的约束，它本质上是一个大的消息缓冲区。许多生产者可以发送到一个队列的消息，并且许多消费者可以尝试从一个队列接收数据。官网上红色多格子长方形则标识队列。</p>
-<p><img src="http://image.chenyongjun.vip/rabbitmq_queue.png" alt="img"></p>
+<p><img src="https://gitee.com/ltalex/cdn/raw/master/imgs/2020/07/20200731173621.png" alt="img"></p>
 </li>
 <li><p>消费者</p>
 <p>消费与接受有类似的意义。消费者是一个主要等待接收消息的程序：</p>
 </li>
 </ul>
-<p><img src="http://image.chenyongjun.vip/rabbitmq_consumer.png" alt="img"></p>
+<p><img src="https://gitee.com/ltalex/cdn/raw/master/imgs/2020/07/20200731173626.png" alt="img"></p>
 <p>请注意，生产者、消费者和消息代理不必驻留在同一主机上;实际上在大多数应用中，应用程序也可以是生产者和消费者。</p>
 <p>总结：整个过程非常简单，生产者创建消息，消费者接收这些消息。你的应用程序既可以作为生产者向其他应用程序发送消息，也可以作为消费者，等待接收其他应用程序的消息。其中，存储消息的是消息队列，它类似于邮箱，消息通过消息队列进行投递。</p>
 <h2 id="案例实战"><a href="#案例实战" class="headerlink" title="案例实战"></a>案例实战</h2><p>在本教程的这一部分中，我们将用Java编写两个程序;发送单个消息的生产者，以及接收消息并将其打印出来的消费者。我们将掩盖Java API中的一些细节，专注于这个非常简单的事情，只是为了开始。这是消息传递的“Hello World”。</p>
 <p>在下图中，“P”是我们的生产者，“C”是我们的消费者。中间的红框是一个队列 - RabbitMQ代表消费者保留的消息缓冲区。</p>
-<p><img src="http://image.chenyongjun.vip/rabbitmq_python-one.png" alt="img"></p>
+<p><img src="https://gitee.com/ltalex/cdn/raw/master/imgs/2020/07/20200731173630.png" alt="img"></p>
 <p>了解到上述概念，现在我们开始动手实践吧！</p>
 <h3 id="导入客户端依赖"><a href="#导入客户端依赖" class="headerlink" title="导入客户端依赖"></a>导入客户端依赖</h3><ol>
 <li>Maven</li>
@@ -233,9 +233,9 @@
 <p>为什么我们不使用try-with-resource语句来自动关闭通道和连接？通过这样做，我们只需让程序继续运行，关闭所有内容，然后退出！这将是尴尬的，因为我们希望在消费者异步监听消息到达时，该进程保持活动状态。</p>
 <p>我们即将告诉服务器从队列中传递消息。因为它会异步地向我们发送消息，所以我们以对象的形式提供一个回调，它将缓冲消息，直到我们准备好使用它们。这就是DeliverCallback子类的作用。</p>
 <h3 id="消息生产与发送"><a href="#消息生产与发送" class="headerlink" title="消息生产与发送"></a>消息生产与发送</h3><p>我们先执行消息发送者，执行完成后如下图：</p>
-<p><img src="http://qczr457kz.bkt.clouddn.com/imgs/doc/20180612001/send.png" alt="发送消息"></p>
+<p><img src="https://gitee.com/ltalex/cdn/raw/master/imgs/2020/07/20200731173639.png" alt="发送消息"></p>
 <p>紧接着，我们进行消息消费，执行完成后如下图:</p>
-<p><img src="http://qczr457kz.bkt.clouddn.com/imgs/doc/20180612001/recv.png" alt="消费消息"></p>
+<p><img src="https://gitee.com/ltalex/cdn/raw/master/imgs/2020/07/20200731173644.png" alt="消费消息"></p>
 <p>当消息生产者一直发送时，我们可以得到如下结果：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">15:17:00: Executing task <span class="string">'Recv.main()'</span>...</span><br><span class="line"></span><br><span class="line">&gt; Task :compileJava UP-TO-DATE</span><br><span class="line">&gt; Task :processResources NO-SOURCE</span><br><span class="line">&gt; Task :classes UP-TO-DATE</span><br><span class="line"></span><br><span class="line">&gt; Task :Recv.main()</span><br><span class="line">SLF4J: Failed to load class <span class="string">"org.slf4j.impl.StaticLoggerBinder"</span>.</span><br><span class="line">SLF4J: Defaulting to no-operation (NOP) logger implementation</span><br><span class="line">SLF4J: See http://www.slf4j.org/codes.html<span class="comment">#StaticLoggerBinder for further details.</span></span><br><span class="line">[*] Waiting <span class="keyword">for</span> messages. To <span class="built_in">exit</span> press CTRL+C</span><br><span class="line">[x] Received <span class="string">'Hello World, litong, Welcome RabbitMQ!'</span></span><br><span class="line">[x] Received <span class="string">'Hello World, lt, Welcome RabbitMQ!'</span></span><br></pre></td></tr></table></figure>
 <h2 id="源码地址"><a href="#源码地址" class="headerlink" title="源码地址"></a>源码地址</h2><p><a href="https://github.com/ltyeamin/RabbitMQ-Action/tree/master/patterns" target="_blank" rel="noopener">https://github.com/ltyeamin/RabbitMQ-Action/tree/master/patterns</a></p>

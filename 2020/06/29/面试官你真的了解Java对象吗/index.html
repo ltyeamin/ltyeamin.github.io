@@ -256,7 +256,7 @@
 <p>优先分配大对象，直接分配到老年代。</p>
 <p>优先给TLAB(Thread Local Allocation Buffer，线程本地分配缓存区)分配，因为多个线程都会同一块区域分配(抢内存，俗称指针碰撞)，TLAB其实是Eden区划分好的线程区域。</p>
 <p>再TLAB分配完成后，经历过一次YGC，垃圾对象直接回收，若改对象不是垃圾对象，年龄不够，复制到Surivor区，循环往复。直到年龄够大，会被放入老年代中。</p>
-<p><img src="http://qczr457kz.bkt.clouddn.com/imgs/doc/20200705001/1593940781933.png" alt="1593940781933"></p>
+<p><img src="https://gitee.com/ltalex/cdn/raw/master/imgs/2020/07/20200731161415.png" alt="1593940781933"></p>
 <h1 id="8-Object-obj-new-Object-在内存中占用多少个字节？"><a href="#8-Object-obj-new-Object-在内存中占用多少个字节？" class="headerlink" title="8. Object obj = new Object()在内存中占用多少个字节？"></a>8. Object obj = new Object()在内存中占用多少个字节？</h1><p>普通对象开启指针压缩：Mark Word(8字节)+Class Pointer(4字节)+Padding(4字节) = 16 字节</p>
 <p>普通对象未开启指针压缩(含指针压缩失效)：Mark Word(8字节)+Class Pointer(8字节)+Padding(4字节) = 20 字节</p>
 <p>用代码查看内存布局：</p>

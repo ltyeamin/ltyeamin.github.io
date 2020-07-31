@@ -1,0 +1,704 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+<head><meta name="generator" content="Hexo 3.8.0">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1,maximum-scale=1,minimum-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="彤哥哥的博客">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <link rel="dns-prefetch" href="http://ltyeamin.github.io">
+    <!--SEO-->
+
+    <meta name="keywords" content="MySQL">
+
+
+    <meta name="description" content="1. 索引1.1 索引概述打开官方索引文档，可以看到MySQL官方对索引的描述:
+
+The best way to improve the performance of SELECT opera...">
+
+
+
+<meta name="robots" content="all">
+<meta name="google" content="all">
+<meta name="googlebot" content="all">
+<meta name="verify" content="all">
+    <!--Title-->
+
+
+<title>【MySQL高级实战】-索引与存储引擎学习指南 | 彤哥哥的博客</title>
+
+
+    <link rel="alternate" href="/atom.xml" title="彤哥哥的博客" type="application/atom+xml">
+
+
+    <link rel="icon" href="/favicon.ico">
+
+
+<script src="/js/jquery.min.js"></script>
+    <link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7">
+<link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash">
+<link rel="stylesheet" href="/css/calendar.css?rev=@@hash">
+<link rel="stylesheet" href="/css/variable.css?rev=@@hash">
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+            var hm = document.createElement("script");
+            hm.src = "https://hm.baidu.com/hm.js?ebfd000c0e7cc1ee84a00f01d419b1e2";
+            var s = document.getElementsByTagName("script")[0];
+            s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
+    
+</head>
+
+</html>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header" style="background-image:url(http://snippet.shenliyang.com/img/banner.jpg)">
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title="YeaMin">
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+        	<!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+                 <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+    	</div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                    <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="http://ltyeamin.github.io">彤哥哥的博客</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/"><i class="fa"></i>首页</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/backend/"><i class="fa"></i>后端</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/frontend/"><i class="fa"></i>前端</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/ops/"><i class="fa"></i>运维</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/database/"><i class="fa"></i>数据库</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/algorithm/"><i class="fa"></i>算法</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/pm/"><i class="fa"></i>项目管理</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href=""><i class="fa"></i>自媒体</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/categories/others/"><i class="fa"></i>生活</a>
+                            </li>
+                        
+                            <li role="presentation" class="text-center">
+                                <a href="/about"><i class="fa /favicon.ico"></i>关于</a>
+                            </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="【MySQL高级实战】-索引与存储引擎学习指南">
+            
+	            【MySQL高级实战】-索引与存储引擎学习指南
+            
+        </h1>
+        <div class="post-meta">
+    
+        <span class="categories-meta fa-wrap">
+            <i class="fa fa-folder-open-o"></i>
+            <a class="category-link" href="/categories/ops/">ops</a>
+        </span>
+    
+
+    
+        <span class="fa-wrap">
+            <i class="fa fa-tags"></i>
+            <span class="tags-meta">
+                
+                    <a class="tag-link" href="/tags/MySQL/">MySQL</a>
+                
+            </span>
+        </span>
+    
+
+    
+        
+        <span class="fa-wrap">
+            <i class="fa fa-clock-o"></i>
+            <span class="date-meta">2020/07/29</span>
+        </span>
+        
+            <span class="fa-wrap">
+                <i class="fa fa-eye"></i>
+                <span id="busuanzi_value_page_pv"></span>
+            </span>
+        
+    
+</div>
+            
+            
+    </div>
+    
+    <div class="post-body post-content">
+        <h1 id="1-索引"><a href="#1-索引" class="headerlink" title="1. 索引"></a>1. 索引</h1><h2 id="1-1-索引概述"><a href="#1-1-索引概述" class="headerlink" title="1.1 索引概述"></a>1.1 索引概述</h2><p>打开<a href="https://dev.mysql.com/doc/refman/8.0/en/optimization-indexes.html" target="_blank" rel="noopener">官方索引文档</a>，可以看到MySQL官方对索引的描述:</p>
+<blockquote>
+<p>The best way to improve the performance of <a href="https://dev.mysql.com/doc/refman/8.0/en/select.html" target="_blank" rel="noopener"><code>SELECT</code></a> operations is to create indexes on one or more of the columns that are tested in the query. The index entries act like pointers to the table rows, allowing the query to quickly determine which rows match a condition in the <code>WHERE</code> clause, and retrieve the other column values for those rows. All MySQL data types can be indexed.</p>
+<p>Although it can be tempting to create an indexes for every possible column used in a query, unnecessary indexes waste space and waste time for MySQL to determine which indexes to use. Indexes also add to the cost of inserts, updates, and deletes because each index must be updated. You must find the right balance to achieve fast queries using the optimal set of indexes.</p>
+</blockquote>
+<p>开启翻译模式，大致意思为:</p>
+<blockquote>
+<p>改善SELECT操作性能的最好方法是在查询中测试的一个或多个列上创建索引。索引条目的作用类似于指向表行的指针，从而使查询可以快速确定哪些行与WHERE子句中的条件匹配，并检索这些行的其他列值。所有MySQL数据类型都可以建立索引。</p>
+<p>尽管可能会为查询中使用的每个可能的列创建索引，但是不必要的索引会浪费空间和时间，使MySQL难以确定要使用的索引。索引还会增加插入，更新和删除的成本，因为必须更新每个索引。您必须找到适当的平衡，才能使用最佳索引集来实现快速查询。</p>
+</blockquote>
+<p>从上述文档我们可以总结出以下几点:</p>
+<ul>
+<li>索引可以一定程度上解决查询性能问题。</li>
+<li>索引项类似于指向表记录的指针，可以快速定位数据。</li>
+<li>MySQL所有的数据类型都是可以建索引。</li>
+<li>索引对表的更新(INSERT、UPDATE、DELETE)操作不友好，增加表的更新成本。</li>
+</ul>
+<h2 id="1-2-索引优劣势"><a href="#1-2-索引优劣势" class="headerlink" title="1.2 索引优劣势"></a>1.2 索引优劣势</h2><h3 id="1-2-1-优势"><a href="#1-2-1-优势" class="headerlink" title="1.2.1 优势"></a>1.2.1 优势</h3><ul>
+<li>大大提高了数据检索的效率，降低数据库的IO成本。</li>
+<li>通过索引列对数据进行排序，降低数据排序的时间成本。  </li>
+<li>可创建唯一性索引，保证数据库表中的每一行数据的唯一性。</li>
+<li>可以加速表和表之间的连接，实现数据完整性。</li>
+</ul>
+<h3 id="1-2-2-劣势"><a href="#1-2-2-劣势" class="headerlink" title="1.2.2 劣势"></a>1.2.2 劣势</h3><ul>
+<li>索引需要占用物理空间。</li>
+<li>创建索引和维护索引要耗费时间，这种时间随着数据量的增加而增加。</li>
+<li>对表中的数据进行更新(INSERT、UPDATE和DELETE)操作的时候，索引也要动态的维护，降低了数据的维护速度。</li>
+</ul>
+<h2 id="1-3-索引底层结构"><a href="#1-3-索引底层结构" class="headerlink" title="1.3 索引底层结构"></a>1.3 索引底层结构</h2><h3 id="1-3-1-索引与数据结构"><a href="#1-3-1-索引与数据结构" class="headerlink" title="1.3.1 索引与数据结构"></a>1.3.1 索引与数据结构</h3><p><strong>索引(index)是帮助MySQL高效获取数据的有序数据结构。</strong></p>
+<p>在数据之外，数据库系统还维护者满足特定查找算法的数据结构，这些数据结构以某种方式引用(指向)数据， 这样就可以在这些数<br>据结构上实现高级查找算法，这种数据结构就是索引。  </p>
+<p>我们都知道二叉搜索树(Binary Search Tree,BST)查询效率很高，这里先举个例子来阐述索引与数据结构的关系,话不多说，直接上图:</p>
+<p><img src="https://gitee.com/ltalex/cdn/raw/master/imgs/2020/07/20200731135417.png" alt="image-20200730163252519"></p>
+<p>图1是没有建立索引的数据表，最左边以0x开始的十六进制表示数据记录的物理地址，需要注意的是逻辑上相邻的记录在磁盘上并不一定物理相连。</p>
+<p>图2是为了加快Col2列的查找，将图1的数据表中的数据映射到二叉查找树，每个节点分别包含索引键值和一个指向对应数据记录物理地址的指针，这样就可以运用二叉查找快速获取到相应数据。  </p>
+<p>图1的数据表没有建立索引，会将表顺序扫描所有记录行，想要查询Col2=34的数据，会很快找到，但是想要查询Col2=3的数据需要全表扫描7次才能找到。试想一下，如果千万量级的数据量这样查询，需要扫描N多个记录行，效率极其低效。</p>
+<p>如果是图2建立索引，索引与记录维护(顺序存储)在一棵二叉搜索树，会大大提升查询效率。我们都知道二叉树都是有序的。比根节点小的数据放在左子树的左子节点，比根节点大的数据放在右子树的右子节点。想要查询Col2=34的数据，也会很快找到，想要查询Col2=3的数据，只需要3次即可定位到想要的数据。这样做的本质就是用(额外的索引存储)空间换(查询速度)时间,空间复杂度高了，但是时间复杂度低了。</p>
+<p>我们知道二叉搜索树是不平衡树，存放节点也非常的少，面对百万级甚至千万级的表数据显得力不从心，因此MySQL选用B+树来作为索引的存储结构。</p>
+<p>通过这个例子，可以利用已有的数据结构来优化数据表的查询。一般来说索引本身也很大，不可能全部存储在内存中，因此索引往往以索引文件的形式存储在磁盘上。索引是数据库中用来提高性能的最常用的工具。  </p>
+<h3 id="1-3-2-B树"><a href="#1-3-2-B树" class="headerlink" title="1.3.2 B树"></a>1.3.2 B树</h3><p>B Tree又叫多路平衡搜索树，一颗m阶的BTree特性如下 :</p>
+<ul>
+<li>树中每个节点最多包含m个孩子。</li>
+<li>除根节点与叶子节点外，每个节点至少有[ceil(m/2)]个孩子。</li>
+<li>若根节点不是叶子节点，则至少有两个孩子,除非树只包含一个节点。</li>
+<li>所有的叶子节点都在同一层。</li>
+<li>每个非叶子节点由n个key与n+1个指针组成，其中[ceil(m/2)-1] &lt;= n &lt;= m-1，ceil表示向上取整 。</li>
+</ul>
+<p>以5阶B Tree为例，key的数量：公式推导[ceil(m/2)-1] &lt;= n &lt;= m-1。所以 2 &lt;= n &lt;=4 。当n&gt;4时，中间节点分裂到<br>父节点，两边节点分裂。  </p>
+<p>插入 C N G A H E K Q M F W L T Z D P R X Y S 数据为例。  演变过程如下：  </p>
+<ol>
+<li><p>插入前4个字母 C N G A  ，排序并插入。</p>
+<p><img src="https://gitee.com/ltalex/cdn/raw/master/imgs/2020/07/20200731143321.png" alt="image-20200731143321898"></p>
+</li>
+<li><p>插入H，n&gt;4，中间元素G字母向上分裂到新的节点。</p>
+<p><img src="https://gitee.com/ltalex/cdn/raw/master/imgs/2020/07/20200731143445.png" alt="image-20200731143445542"></p>
+</li>
+<li><p>插入E，K，Q不需要分裂。</p>
+<p><img src="https://gitee.com/ltalex/cdn/raw/master/imgs/2020/07/20200731143547.png" alt="image-20200731143547236"></p>
+</li>
+<li><p>插入M，中间元素M字母向上分裂到父节点G 。</p>
+<p><img src="https://gitee.com/ltalex/cdn/raw/master/imgs/2020/07/20200731143707.png" alt="image-20200731143707850"></p>
+</li>
+<li><p>插入F，W，L，T不需要分裂 。</p>
+<p><img src="https://gitee.com/ltalex/cdn/raw/master/imgs/2020/07/20200731143735.png" alt="image-20200731143735813"></p>
+</li>
+<li><p>插入Z，中间元素T向上分裂到父节点中 。</p>
+<p><img src="https://gitee.com/ltalex/cdn/raw/master/imgs/2020/07/20200731143827.png" alt="image-20200731143827771"></p>
+</li>
+<li><p>插入D，中间元素D向上分裂到父节点中。然后插入P，R，X，Y不需要分裂。</p>
+<p><img src="https://gitee.com/ltalex/cdn/raw/master/imgs/2020/07/20200731143852.png" alt="image-20200731143852737"></p>
+</li>
+<li><p>最后插入S，NPQR节点n&gt;5，中间节点Q向上分裂，但分裂后父节点DGMT的n&gt;5，中间节点M向上分裂。</p>
+<p><img src="https://gitee.com/ltalex/cdn/raw/master/imgs/2020/07/20200731143913.png" alt="image-20200731143913548"></p>
+</li>
+</ol>
+<p>到此，该B Tree树就已经构建完成了， B Tree树和二叉树相比，查询数据的效率更高，因为对于相同的数据量来说，BTREE的层级结构比二叉树小，因此搜索速度快。  </p>
+<h3 id="1-3-3-B-树"><a href="#1-3-3-B-树" class="headerlink" title="1.3.3 B+树"></a>1.3.3 B+树</h3><p>B+Tree为BTree的变种，B+Tree与BTree的区别为：  </p>
+<ul>
+<li>n阶B+Tree最多含有n个key，而B Tree最多含有n-1个key。</li>
+<li>B+Tree的叶子节点保存所有的key信息，依key大小顺序排列。</li>
+<li>所有的非叶子节点都可以看作是key的索引部分。  </li>
+</ul>
+<p><img src="https://gitee.com/ltalex/cdn/raw/master/imgs/2020/07/20200731144325.png" alt="image-20200731144325332"></p>
+<p>由于B+Tree只有叶子节点保存key信息，查询任何key都要从root走到叶子。所以B+Tree的查询效率更加稳定。  </p>
+<h3 id="1-3-4-MySQL-B-树"><a href="#1-3-4-MySQL-B-树" class="headerlink" title="1.3.4 MySQL B+树"></a>1.3.4 MySQL B+树</h3><p>MySQL索引数据结构对经典的B+Tree进行了优化。在原B+Tree的基础上，增加一个指向相邻叶子节点的链表指<br>针，就形成了带有顺序指针的B+Tree，提高区间访问的性能。  </p>
+<p>MySQL中的 B+Tree 索引结构示意图如下:  </p>
+<p><img src="https://gitee.com/ltalex/cdn/raw/master/imgs/2020/07/20200731135440.png" alt="image-20200730170248368"></p>
+<h2 id="1-4-索引分类"><a href="#1-4-索引分类" class="headerlink" title="1.4 索引分类"></a>1.4 索引分类</h2><h3 id="1-4-1-聚簇索引"><a href="#1-4-1-聚簇索引" class="headerlink" title="1.4.1 聚簇索引"></a>1.4.1 聚簇索引</h3><p>数据和索引存储到一起，找到索引就获取到了数据。聚簇索引是唯一的，InnoDB一定会有一个聚簇索引来保存数据。</p>
+<p>如果一个表中的普通列创建了索引，那么叶子节点中存放的值是聚簇索引的key值。</p>
+<p>InnoDB聚簇索引选择顺序：</p>
+<ol>
+<li>默认选择主键；</li>
+<li>没有主机，选择唯一的非空索引；</li>
+<li>都没有，则隐式定义一个主键rowId；</li>
+</ol>
+<h3 id="1-4-2-非聚簇索引"><a href="#1-4-2-非聚簇索引" class="headerlink" title="1.4.2 非聚簇索引"></a>1.4.2 非聚簇索引</h3><p>数据存储和索引分开，叶子节点存储对应的行，需要二次查找，通常称为二级索引或辅助索引；非聚簇索引一定存储有聚簇索引的列值。</p>
+<h3 id="1-4-3-单值索引"><a href="#1-4-3-单值索引" class="headerlink" title="1.4.3 单值索引"></a>1.4.3 单值索引</h3><p>即一个索引只包含单个列，一个表可以有多个单列索引  。</p>
+<h3 id="1-4-4-唯一索引"><a href="#1-4-4-唯一索引" class="headerlink" title="1.4.4 唯一索引"></a>1.4.4 唯一索引</h3><p>索引列的值必须唯一，但允许有空值  。</p>
+<h3 id="1-4-5-复合索引"><a href="#1-4-5-复合索引" class="headerlink" title="1.4.5 复合索引"></a>1.4.5 复合索引</h3><p>一个索引包含多个列  。</p>
+<h2 id="1-5-索引语法"><a href="#1-5-索引语法" class="headerlink" title="1.5 索引语法"></a>1.5 索引语法</h2><h3 id="1-5-1-环境准备"><a href="#1-5-1-环境准备" class="headerlink" title="1.5.1 环境准备"></a>1.5.1 环境准备</h3><p>索引在创建表的时候，可以同时创建， 也可以随时增加新的索引。  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">create database index_demo default charset=utf8mb4;</span><br><span class="line"></span><br><span class="line">use index_demo;</span><br><span class="line"></span><br><span class="line">CREATE TABLE `city` (</span><br><span class="line">    `city_id` int(11) NOT NULL AUTO_INCREMENT,</span><br><span class="line">    `city_name` varchar(50) NOT NULL,</span><br><span class="line">    `country_id` int(11) NOT NULL,</span><br><span class="line">    PRIMARY KEY (`city_id`)</span><br><span class="line">) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;</span><br><span class="line"></span><br><span class="line">CREATE TABLE `country` (</span><br><span class="line">    `country_id` int(11) NOT NULL AUTO_INCREMENT,</span><br><span class="line">    `country_name` varchar(100) NOT NULL,</span><br><span class="line">    PRIMARY KEY (`country_id`)</span><br><span class="line">) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;</span><br><span class="line"></span><br><span class="line">insert into `city` (`city_id`, `city_name`, `country_id`) values(1,&apos;西安&apos;,1);</span><br><span class="line">insert into `city` (`city_id`, `city_name`, `country_id`) values(2,&apos;NewYork&apos;,2);</span><br><span class="line">insert into `city` (`city_id`, `city_name`, `country_id`) values(3,&apos;北京&apos;,1);</span><br><span class="line">insert into `city` (`city_id`, `city_name`, `country_id`) values(4,&apos;上海&apos;,1);</span><br><span class="line"></span><br><span class="line">insert into `country` (`country_id`, `country_name`) values(1,&apos;China&apos;);</span><br><span class="line">insert into `country` (`country_id`, `country_name`) values(2,&apos;America&apos;);</span><br><span class="line">insert into `country` (`country_id`, `country_name`) values(3,&apos;Japan&apos;);</span><br><span class="line">insert into `country` (`country_id`, `country_name`) values(4,&apos;UK&apos;);</span><br></pre></td></tr></table></figure>
+<h3 id="1-5-2-建立索引"><a href="#1-5-2-建立索引" class="headerlink" title="1.5.2 建立索引"></a>1.5.2 建立索引</h3><p>语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CREATE [UNIQUE|FULLTEXT|SPATIAL] INDEX index_name</span><br><span class="line">[USING index_type]</span><br><span class="line">ON tbl_name(index_col_name,...)</span><br><span class="line"></span><br><span class="line">index_col_name : column_name[(length)][ASC | DESC]</span><br></pre></td></tr></table></figure>
+<p>示例 ： 为city表中的city_name字段创建索引</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; create index idx_city_name on city(city_name);</span><br><span class="line">Query OK, 0 rows affected (0.26 sec)</span><br><span class="line">Records: 0  Duplicates: 0  Warnings: 0</span><br></pre></td></tr></table></figure>
+<h3 id="1-5-3-查看索引"><a href="#1-5-3-查看索引" class="headerlink" title="1.5.3 查看索引"></a>1.5.3 查看索引</h3><p>语法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">show index from table_name;</span><br></pre></td></tr></table></figure>
+<p>示例： 查看city表的索引</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show index from city\G;</span><br><span class="line">*************************** 1. row ***************************</span><br><span class="line">        Table: city</span><br><span class="line">   Non_unique: 0</span><br><span class="line">     Key_name: PRIMARY</span><br><span class="line"> Seq_in_index: 1</span><br><span class="line">  Column_name: city_id</span><br><span class="line">    Collation: A</span><br><span class="line">  Cardinality: 4</span><br><span class="line">     Sub_part: NULL</span><br><span class="line">       Packed: NULL</span><br><span class="line">         Null: </span><br><span class="line">   Index_type: BTREE</span><br><span class="line">      Comment: </span><br><span class="line">Index_comment: </span><br><span class="line">      Visible: YES</span><br><span class="line">   Expression: NULL</span><br><span class="line">*************************** 2. row ***************************</span><br><span class="line">        Table: city</span><br><span class="line">   Non_unique: 1</span><br><span class="line">     Key_name: idx_city_name</span><br><span class="line"> Seq_in_index: 1</span><br><span class="line">  Column_name: city_name  </span><br><span class="line">    Collation: A</span><br><span class="line">  Cardinality: 4</span><br><span class="line">     Sub_part: NULL</span><br><span class="line">       Packed: NULL</span><br><span class="line">         Null: </span><br><span class="line">   Index_type: BTREE</span><br><span class="line">      Comment: </span><br><span class="line">Index_comment: </span><br><span class="line">      Visible: YES</span><br><span class="line">   Expression: NULL</span><br><span class="line">2 rows in set (0.01 sec)</span><br></pre></td></tr></table></figure>
+<h3 id="1-5-4-删除索引"><a href="#1-5-4-删除索引" class="headerlink" title="1.5.4 删除索引"></a>1.5.4 删除索引</h3><p>语法 ：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DROP INDEX index_name ON tbl_name;</span><br></pre></td></tr></table></figure>
+<p>示例 ： 想要删除city表上的索引idx_city_name，可以操作如下：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; drop index idx_city_name on city;</span><br><span class="line">Query OK, 0 rows affected (0.16 sec)</span><br><span class="line">Records: 0  Duplicates: 0  Warnings: 0</span><br></pre></td></tr></table></figure>
+<h3 id="1-5-5-ALTER命令操作索引"><a href="#1-5-5-ALTER命令操作索引" class="headerlink" title="1.5.5 ALTER命令操作索引"></a>1.5.5 ALTER命令操作索引</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">-- 该语句添加一个主键，这意味着索引值必须是唯一的，且不能为NULL</span><br><span class="line">alter table tb_name add primary key(column_list);</span><br><span class="line">-- 这条语句创建索引的值必须是唯一的（除了NULL外，NULL可能会出现多次）</span><br><span class="line">alter table tb_name add unique index_name(column_list);</span><br><span class="line">-- 添加普通索引， 索引值可以出现多次。</span><br><span class="line">alter table tb_name add index index_name(column_list);</span><br><span class="line">-- 该语句指定了索引为FULLTEXT， 用于全文索引</span><br><span class="line">alter table tb_name add fulltext index_name(column_list);</span><br></pre></td></tr></table></figure>
+<h2 id="1-6-索引设计原则"><a href="#1-6-索引设计原则" class="headerlink" title="1.6 索引设计原则"></a>1.6 索引设计原则</h2><p>索引的设计可以遵循一些已有的原则，创建索引的时候请尽量考虑符合这些原则，便于提升索引的使用效率，更高<br>效的使用索引。  </p>
+<ul>
+<li><p>对查询频次较高，且数据量比较大的表建立索引。  </p>
+</li>
+<li><p>索引字段的选择，最佳候选列应当从where子句的条件中提取，如果where子句中的组合比较多，那么应当挑选最常用、过滤效果最好的列的组合。  </p>
+</li>
+<li><p>使用唯一索引，区分度越高，使用索引的效率越高。  </p>
+</li>
+<li><p>索引可以有效的提升查询数据的效率，但索引数量不是多多益善，索引越多，维护索引的代价自然也就水涨船高。对于插入、更新、删除等DML操作比较频繁的表来说，索引过多，会引入相当高的维护代价，降低DML操作的效率，增加相应操作的时间消耗。另外索引过多的话，MySQL也会犯选择困难病，虽然最终仍然会找到一个可用的索引，但无疑提高了选择的代价。  </p>
+</li>
+<li><p>使用短索引，索引创建之后也是使用硬盘来存储的，因此提升索引访问的I/O效率，也可以提升总体的访问效率。假如构成索引的字段总长度比较短，那么在给定大小的存储块内可以存储更多的索引值，相应的可以有效的提升MySQL访问索引的I/O效率。  </p>
+</li>
+<li><p>利用最左前缀,N个列组合而成的组合索引，那么相当于是创建了N个索引，如果查询时where子句中使用了组成该索引的前几个字段，那么这条查询SQL可以利用组合索引来提升查询效率。如下创建复合索引，相当于对name创建索引、对name , email创建了索引、对name , email, status创建了索引。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CREATE INDEX idx_name_email_status ON tb_user(name,email,status);</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h1 id="2-存储引擎"><a href="#2-存储引擎" class="headerlink" title="2. 存储引擎"></a>2. 存储引擎</h1><h2 id="2-1-存储引擎概述"><a href="#2-1-存储引擎概述" class="headerlink" title="2.1 存储引擎概述"></a>2.1 存储引擎概述</h2><p>和大多数的数据库不同, MySQL中有一个存储引擎的概念, 针对不同的存储需求可以选择最优的存储引擎。  </p>
+<p>存储引擎就是存储数据，建立索引，更新查询数据等等技术的实现方式 。存储引擎是基于表的，而不是基于库的。<br>所以存储引擎也可被称为表类型。  </p>
+<p>Oracle，SqlServer等数据库只有一种存储引擎。MySQL提供了插件式的存储引擎架构。所以MySQL存在多种存储<br>引擎，可以根据需要使用相应引擎，或者编写存储引擎。  </p>
+<p>MySQL5.0支持的存储引擎包含 ： InnoDB 、MyISAM 、BDB、MEMORY、MERGE、EXAMPLE、NDB Cluster、<br>ARCHIVE、CSV、BLACKHOLE、FEDERATED等，其中InnoDB和BDB提供事务安全表，其他存储引擎是非事务安<br>全表。  </p>
+<p>可以通过指定 show engines ， 来查询当前数据库支持的存储引擎 ：  </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show engines;</span><br><span class="line">+--------------------+---------+----------------------------------------------------------------+--------------+------+------------+</span><br><span class="line">| Engine             | Support | Comment                                                        | Transactions | XA   | Savepoints |</span><br><span class="line">+--------------------+---------+----------------------------------------------------------------+--------------+------+------------+</span><br><span class="line">| FEDERATED          | NO      | Federated MySQL storage engine                                 | NULL         | NULL | NULL       |</span><br><span class="line">| MEMORY             | YES     | Hash based, stored in memory, useful for temporary tables      | NO           | NO   | NO         |</span><br><span class="line">| InnoDB             | DEFAULT | Supports transactions, row-level locking, and foreign keys     | YES          | YES  | YES        |</span><br><span class="line">| PERFORMANCE_SCHEMA | YES     | Performance Schema                                             | NO           | NO   | NO         |</span><br><span class="line">| MyISAM             | YES     | MyISAM storage engine                                          | NO           | NO   | NO         |</span><br><span class="line">| MRG_MYISAM         | YES     | Collection of identical MyISAM tables                          | NO           | NO   | NO         |</span><br><span class="line">| BLACKHOLE          | YES     | /dev/null storage engine (anything you write to it disappears) | NO           | NO   | NO         |</span><br><span class="line">| CSV                | YES     | CSV storage engine                                             | NO           | NO   | NO         |</span><br><span class="line">| ARCHIVE            | YES     | Archive storage engine                                         | NO           | NO   | NO         |</span><br><span class="line">+--------------------+---------+----------------------------------------------------------------+--------------+------+------------+</span><br></pre></td></tr></table></figure>
+<p>创建新表时如果不指定存储引擎，那么系统就会使用默认的存储引擎，MySQL5.5之前的默认存储引擎是<br>MyISAM，5.5之后就改为了InnoDB。  </p>
+<p>查看Mysql数据库默认的存储引擎 ，执行如下指令 ：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">mysql&gt; show variables like &apos;%storage_engine%&apos;;</span><br><span class="line">+---------------------------------+-----------+</span><br><span class="line">| Variable_name                   | Value     |</span><br><span class="line">+---------------------------------+-----------+</span><br><span class="line">| default_storage_engine          | InnoDB    |</span><br><span class="line">| default_tmp_storage_engine      | InnoDB    |</span><br><span class="line">| disabled_storage_engines        |           |</span><br><span class="line">| internal_tmp_mem_storage_engine | TempTable |</span><br><span class="line">+---------------------------------+-----------+</span><br><span class="line">4 rows in set (0.01 sec)</span><br></pre></td></tr></table></figure>
+<h2 id="2-2-不同存储引擎的区别"><a href="#2-2-不同存储引擎的区别" class="headerlink" title="2.2 不同存储引擎的区别"></a>2.2 不同存储引擎的区别</h2><table>
+<thead>
+<tr>
+<th>特点</th>
+<th>InnoDB</th>
+<th>MyISAM</th>
+<th>MEMORY</th>
+<th>MERGE</th>
+<th>NDB</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>存储限制</td>
+<td>64TB</td>
+<td>有</td>
+<td>有</td>
+<td>没有</td>
+<td>有</td>
+</tr>
+<tr>
+<td>事务安全</td>
+<td>支持</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>锁机制</td>
+<td>行锁(适合高并发)</td>
+<td>表锁</td>
+<td>表锁</td>
+<td>表锁</td>
+<td>行锁</td>
+</tr>
+<tr>
+<td>B树索引</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>哈希索引</td>
+<td>支持</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>全文索引</td>
+<td>支持(5.6版本之后)</td>
+<td>支持</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>集群索引</td>
+<td>支持</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>数据索引</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>索引缓存</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>数据可压缩</td>
+<td>支持</td>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>空间使用</td>
+<td>高</td>
+<td>低</td>
+<td>N/A</td>
+<td>低</td>
+<td>低</td>
+</tr>
+<tr>
+<td>内存使用</td>
+<td>高</td>
+<td>低</td>
+<td>中等</td>
+<td>低</td>
+<td>高</td>
+</tr>
+<tr>
+<td>批量插入速度</td>
+<td>低</td>
+<td>高</td>
+<td>高</td>
+<td>高</td>
+<td>高</td>
+</tr>
+<tr>
+<td>支持外键</td>
+<td>支持</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="2-3-存储引擎的选择"><a href="#2-3-存储引擎的选择" class="headerlink" title="2.3 存储引擎的选择"></a>2.3 存储引擎的选择</h2><p>在选择存储引擎时，应该根据应用系统的特点选择合适的存储引擎。对于复杂的应用系统，还可以根据实际情况选择多种存储引擎进行组合。以下是几种常用的存储引擎的使用环境。  </p>
+<ul>
+<li>InnoDB : 是Mysql的默认存储引擎，用于事务处理应用程序，支持外键。如果应用对事务的完整性有比较高的要求，在并发条件下要求数据的一致性，数据操作除了插入和查询意外，还包含很多的更新、删除操作，那么InnoDB存储引擎是比较合适的选择。InnoDB存储引擎除了有效的降低由于删除和更新导致的锁定， 还可以确保事务的完整提交和回滚，对于类似于计费系统或者财务系统等对数据准确性要求比较高的系统，InnoDB是最合适的选择。</li>
+<li>MyISAM ： 如果应用是以读操作和插入操作为主，只有很少的更新和删除操作，并且对事务的完整性、并发性要求不是很高，那么选择这个存储引擎是非常合适的。</li>
+<li>MEMORY：将所有数据保存在RAM中，在需要快速定位记录和其他类似数据环境下，可以提供几块的访问。MEMORY的缺陷就是对表的大小有限制，太大的表无法缓存在内存中，其次是要确保表的数据可以恢复，数据库异常终止后表中的数据是可以恢复的。MEMORY表通常用于更新不太频繁的小表，用以快速得到访问结果。</li>
+<li>MERGE：用于将一系列等同的MyISAM表以逻辑方式组合在一起，并作为一个对象引用他们。MERGE表的优点在于可以突破对单个MyISAM表的大小限制，并且通过将不同的表分布在多个磁盘上，可以有效的改善MERGE表的访问效率。这对于存储诸如数据仓储等VLDB环境十分合适。  </li>
+</ul>
+<h1 id="3-面试连环炮"><a href="#3-面试连环炮" class="headerlink" title="3. 面试连环炮"></a>3. 面试连环炮</h1><ol>
+<li>为什么MySQL索引结构选用B+树？为什么不选用其他数据结构?</li>
+<li>什么时候该建立索引，什么时候不该建立索引?</li>
+<li>聚簇索引和非聚簇索引的区别？</li>
+<li>索引的分类有哪些？</li>
+<li>聚簇索引一定是唯一索引吗？</li>
+<li>请解释回表、覆盖索引、最左匹配、索引下推。</li>
+</ol>
+<h1 id="4-参考资料"><a href="#4-参考资料" class="headerlink" title="4. 参考资料"></a>4. 参考资料</h1><ul>
+<li><a href="https://dev.mysql.com/doc/refman/8.0/en/" target="_blank" rel="noopener">MySQL 8.0 Reference Manual</a></li>
+<li><a href="https://www.cs.usfca.edu/~galles/visualization/Algorithms.html" target="_blank" rel="noopener">数据结构可视化</a></li>
+<li><a href="https://visualgo.net/zh" target="_blank" rel="noopener">数据结构与算法可视化</a></li>
+</ul>
+    </div>
+    
+        <div class="reward" ontouchstart="">
+    <div class="reward-wrap">赏
+        <div class="reward-box">
+            
+                <span class="reward-type">
+                    <img class="alipay" src="/about/alipay.png"><b>支付宝打赏</b>
+                </span>
+            
+            
+                <span class="reward-type">
+                    <img class="wechat" src="/about/weixin.png"><b>微信打赏</b>
+                </span>
+            
+        </div>
+    </div>
+    <p class="reward-tip">请作者喝杯咖啡吧</p>
+
+    <!-- 社会分享工具 -->
+    <div class="bdsharebuttonbox">
+         <a href="#" class="bds_more" data-cmd="more"></a>
+         <a href="#" class="bds_qzone" data-cmd="qzone"></a><a href="#" class="bds_tsina" data-cmd="tsina"></a>
+         <a href="#" class="bds_tqq" data-cmd="tqq"></a><a href="#" class="bds_renren" data-cmd="renren"></a>
+         <a href="#" class="bds_weixin" data-cmd="weixin"></a>
+    </div>
+     <script>
+        window._bd_share_config={"common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdPic":"","bdStyle":"0","bdSize":"16"},"share":{},"image":{"viewList":["qzone","tsina","tqq","renren","weixin"],"viewText":"分享到：","viewSize":"16"},"selectShare":{"bdContainerClass":null,"bdSelectMiniList":["qzone","tsina","tqq","renren","weixin"]}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+     </script>
+</div>
+    
+    <div class="post-footer">
+        <div>
+            
+                转载声明：商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">彤哥哥</a>
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+
+<div class="article-nav prev-next-wrap clearfix">
+    
+        <a href="/2020/07/31/巧用Gitee+PicGo+Typora搭建免费图床/" class="pre-post btn btn-default" title="巧用Gitee+PicGo+Typora搭建免费图床">
+            <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+            <span class="hidden-xs">巧用Gitee+PicGo+Typora搭建免费图床</span>
+        </a>
+    
+    
+        <a href="/2020/07/22/【Java并发编程实战】-J.U.C并发包之AQS/" class="next-post btn btn-default" title="【Java并发编程实战】-解读J.U.C并发包之AQS">
+            <span class="hidden-lg">下一篇</span>
+            <span class="hidden-xs">【Java并发编程实战】-解读J.U.C并发包之AQS</span><i class="fa fa-angle-right fa-fw"></i>
+        </a>
+    
+</div>
+
+
+    <div id="comments">
+        <div id="vcomments" class="valine"></div>
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src="/assets/valine.min.js"></script>
+
+    <script>
+        new Valine({
+            av: AV,
+            el: '#vcomments',
+            appId: 'wA3iNQOiAuhrRJkNgIjirA8f-gzGzoHsz',
+            appKey: 'iGL0JyEnJQ8HIMlLd4Sm0oOp',
+            placeholder: '说点什么吧',
+            notify: false,
+            verify: false,
+            avatar: 'mm',
+            meta: 'nick,mail,link'.split(','),
+            pageSize: '10',
+            path: window.location.pathname,
+            lang: 'zh-CN'.toLowerCase()
+        })
+    </script>
+    </div>
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">文章目录</h3>
+        
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-索引"><span class="toc-text">1. 索引</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-索引概述"><span class="toc-text">1.1 索引概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-索引优劣势"><span class="toc-text">1.2 索引优劣势</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-1-优势"><span class="toc-text">1.2.1 优势</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2-2-劣势"><span class="toc-text">1.2.2 劣势</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-索引底层结构"><span class="toc-text">1.3 索引底层结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-1-索引与数据结构"><span class="toc-text">1.3.1 索引与数据结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-2-B树"><span class="toc-text">1.3.2 B树</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-3-B-树"><span class="toc-text">1.3.3 B+树</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-4-MySQL-B-树"><span class="toc-text">1.3.4 MySQL B+树</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-4-索引分类"><span class="toc-text">1.4 索引分类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-1-聚簇索引"><span class="toc-text">1.4.1 聚簇索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-2-非聚簇索引"><span class="toc-text">1.4.2 非聚簇索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-3-单值索引"><span class="toc-text">1.4.3 单值索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-4-唯一索引"><span class="toc-text">1.4.4 唯一索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-5-复合索引"><span class="toc-text">1.4.5 复合索引</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-5-索引语法"><span class="toc-text">1.5 索引语法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-5-1-环境准备"><span class="toc-text">1.5.1 环境准备</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-5-2-建立索引"><span class="toc-text">1.5.2 建立索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-5-3-查看索引"><span class="toc-text">1.5.3 查看索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-5-4-删除索引"><span class="toc-text">1.5.4 删除索引</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-5-5-ALTER命令操作索引"><span class="toc-text">1.5.5 ALTER命令操作索引</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-6-索引设计原则"><span class="toc-text">1.6 索引设计原则</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-存储引擎"><span class="toc-text">2. 存储引擎</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-存储引擎概述"><span class="toc-text">2.1 存储引擎概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-不同存储引擎的区别"><span class="toc-text">2.2 不同存储引擎的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-存储引擎的选择"><span class="toc-text">2.3 存储引擎的选择</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-面试连环炮"><span class="toc-text">3. 面试连环炮</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-参考资料"><span class="toc-text">4. 参考资料</span></a></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+
+<a id="back-to-top" class="icon-btn hide">
+	<i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+        访问量:
+        <strong id="busuanzi_value_site_pv">
+            <i class="fa fa-spinner fa-spin"></i>
+        </strong>
+        &nbsp; | &nbsp;
+        访客数:
+        <strong id="busuanzi_value_site_uv">
+            <i class="fa fa-spinner fa-spin"></i>
+        </strong>
+    
+</div>
+            </div>
+            <div>
+                <!-- 服务器运行时间统计 -->
+                <span id="sitetime"></span>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy; 2020
+                </span> |
+                <span>
+                    Powered by <a href="//ltyeamin.github.io" class="copyright-links" target="_blank" rel="nofollow">litong</a>
+                </span> |
+                <span>
+                    Blog by <a href="//ltyeamin.github.io" class="copyright-links" target="_blank" rel="nofollow">彤哥哥</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="/assets/tagcanvas.min.js?rev=2.9"></script>
+    <script>
+        var tagOption = {
+            textColour: '#e67e22', // 字体颜色
+            outlineMethod: 'block', // 选中模式
+            outlineColour: '  #FDF5E6', // 选中模式的颜色
+            interval: 30 || 30, // 动画帧之间的时间间隔，值越大，转动幅度越大
+            textHeight: 13,
+            outlineRadius: 3,
+            freezeActive: true || '', // 选中的标签是否继续滚动
+            frontSelect: true || '', // 不选标签云后部的标签
+            initial: [0.1, -0.1],
+            depth: 0.5,
+            decel: 0.95,
+            maxSpeed: 0.03,
+            reverse: true || '', // 是否反向触发
+            fadeIn: 500, // 进入动画时间
+            wheelZoom: true || '' // 是否启用鼠标滚轮
+        }
+        TagCanvas.Start('tag-cloud-3d','',tagOption);
+    </script>
+
+
+
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<script src="/js/app.js?rev=@@hash"></script>
+<!-- 页面点击小红心，在末尾添加，避免找不到 -->
+<script type="text/javascript" src="/js/love.js"></script>
+
+<!-- DaoVoice即时通讯工具 -->
+
+ <script>
+  (function(i,s,o,g,r,a,m){i["DaoVoiceObject"]=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;a.charset="utf-8";m.parentNode.insertBefore(a,m)})(window,document,"script",('https:' == document.location.protocol ? 'https:' : 'http:') + "//widget.daovoice.io/widget/0f81ff2f.js","daovoice")
+  daovoice('init', {
+      app_id: "10b503a1"
+    });
+  daovoice('update');
+  </script>
+
+
+<!-- 音频播放 
+<link rel="stylesheet" href="/dist/APlayer.min.css">
+<div id="aplayer"></div>
+<script type="text/javascript" src="/dist/APlayer.min.js"></script>
+<script type="text/javascript" src="/dist/music.js"></script>
+-->
+
+<!-- 服务器运行时间统计 -->
+<script language="javascript">
+        function siteTime(){
+          window.setTimeout("siteTime()", 1000);
+          var seconds = 1000;
+          var minutes = seconds * 60;
+          var hours = minutes * 60;
+          var days = hours * 24;
+          var years = days * 365;
+          var today = new Date();
+          var todayYear = today.getFullYear();
+          var todayMonth = today.getMonth()+1;
+          var todayDate = today.getDate();
+          var todayHour = today.getHours();
+          var todayMinute = today.getMinutes();
+          var todaySecond = today.getSeconds();
+          /* Date.UTC() -- 返回date对象距世界标准时间(UTC)1970年1月1日午夜之间的毫秒数(时间戳)
+          year - 作为date对象的年份，为4位年份值
+          month - 0-11之间的整数，做为date对象的月份
+          day - 1-31之间的整数，做为date对象的天数
+          hours - 0(午夜24点)-23之间的整数，做为date对象的小时数
+          minutes - 0-59之间的整数，做为date对象的分钟数
+          seconds - 0-59之间的整数，做为date对象的秒数
+          microseconds - 0-999之间的整数，做为date对象的毫秒数 */
+          var t1 = Date.UTC(2016,12,1,00,00,00); //北京时间2016-12-1 00:00:00
+          var t2 = Date.UTC(todayYear,todayMonth,todayDate,todayHour,todayMinute,todaySecond);
+          var diff = t2-t1;
+          var diffYears = Math.floor(diff/years);
+          var diffDays = Math.floor((diff/days)-diffYears*365);
+          var diffHours = Math.floor((diff-(diffYears*365+diffDays)*days)/hours);
+          var diffMinutes = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours)/minutes);
+          var diffSeconds = Math.floor((diff-(diffYears*365+diffDays)*days-diffHours*hours-diffMinutes*minutes)/seconds);
+          document.getElementById("sitetime").innerHTML=" 本站已运行 "+ diffYears+" 年 "+ diffDays+" 天 "+diffHours+" 小时 "+diffMinutes+" 分 "+diffSeconds+" 秒";
+        }
+        siteTime();
+</script>
+</body>

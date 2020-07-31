@@ -204,10 +204,10 @@
 </li>
 </ol>
 <p>我有两台主机，ip分别为192.168.5.1和192.168.5.100，我要从前者远程登录到后者主机上，下面我分别来演示一下两种方式:</p>
-<h2 id="账号密码登录"><a href="#账号密码登录" class="headerlink" title="账号密码登录"></a>账号密码登录</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh root@192.168.5.100</span><br></pre></td></tr></table></figure>
+<h1 id="1-账号密码登录"><a href="#1-账号密码登录" class="headerlink" title="1. 账号密码登录"></a>1. 账号密码登录</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh root@192.168.5.100</span><br></pre></td></tr></table></figure>
 <p>注意： 默认端口号是22,如果不是22需要加入-p+端口号进行登录，比如远程登录示例:</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">litong@LT:~$ ssh -p22 root@192.168.5.100</span><br><span class="line">root@192.168.5.100<span class="string">'s password: </span></span><br><span class="line"><span class="string">Last login: Sat Nov 23 18:34:53 2019 from 192.168.5.1</span></span><br><span class="line"><span class="string">[root@localhost ~]# ifconfig ens33</span></span><br><span class="line"><span class="string">ens33: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500</span></span><br><span class="line"><span class="string">        inet 192.168.5.100  netmask 255.255.255.0  broadcast 192.168.5.255</span></span><br><span class="line"><span class="string">        inet6 fe80::79ad:6fa6:c473:3647  prefixlen 64  scopeid 0x20&lt;link&gt;</span></span><br><span class="line"><span class="string">        ether 00:0c:29:b3:a4:0f  txqueuelen 1000  (Ethernet)</span></span><br><span class="line"><span class="string">        RX packets 281  bytes 40054 (39.1 KiB)</span></span><br><span class="line"><span class="string">        RX errors 0  dropped 0  overruns 0  frame 0</span></span><br><span class="line"><span class="string">        TX packets 211  bytes 37007 (36.1 KiB)</span></span><br><span class="line"><span class="string">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</span></span><br></pre></td></tr></table></figure>
-<h2 id="公钥免密登录"><a href="#公钥免密登录" class="headerlink" title="公钥免密登录"></a>公钥免密登录</h2><ol>
+<h1 id="2-公钥免密登录"><a href="#2-公钥免密登录" class="headerlink" title="2. 公钥免密登录"></a>2. 公钥免密登录</h1><ol>
 <li><p>先在192.168.5.1这太机器上生成公钥；</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa</span><br></pre></td></tr></table></figure>
 <p>执行上述命令后，敲三次回车即可生成，生成后会在当前账号的home的.ssh目录中。</p>
@@ -231,17 +231,17 @@
 </li>
 </ol>
 </li>
-<li><p>上传成功后，查看远程主机~/.ssh/authorized_keys文件的内容，其中内容包含要远程主机的公钥则说吗配置完成</p>
-<h3 id="192-168-5-1机器公钥"><a href="#192-168-5-1机器公钥" class="headerlink" title="192.168.5.1机器公钥"></a>192.168.5.1机器公钥</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">litong@LT:~/.ssh$ cat id_rsa.pub </span><br><span class="line">ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDEeCQP2arzLybGinLvKEgN6cJtINUhDL8uLIwaCJdsv7FbYrBK9R2I01F+pftjiiILCrg0GgwSThAJ7cCxbmriw+D1ZoZdC+MJPONiv4PF9KBWNTGdZ1fLjpEifUI3Aax23TdQqkHs+4+T8zOK2v4MsDgit4nqJheV2I+cXuumPlCONndfr43KxPsGJqAtb8yzkMA20/r8fnnOMbfblDnsAOTGWjC+ond2Eph5AlY2tW+s9JiFBHVawalheqYBVmKlNT3vqVp5IKrnJrIVagN59FKqSOAYTFc/7eR61npGtf0+Ftew137FICGp7F6v4JxjqNuSkxsXsH6+2Z071A3X ltyeamin@gmail.com</span><br></pre></td></tr></table></figure>
-<h3 id="192-168-5-100远程机器免密登录公钥"><a href="#192-168-5-100远程机器免密登录公钥" class="headerlink" title="192.168.5.100远程机器免密登录公钥"></a>192.168.5.100远程机器免密登录公钥</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@localhost .ssh]<span class="comment"># cat authorized_keys </span></span><br><span class="line">ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDEeCQP2arzLybGinLvKEgN6cJtINUhDL8uLIwaCJdsv7FbYrBK9R2I01F+pftjiiILCrg0GgwSThAJ7cCxbmriw+D1ZoZdC+MJPONiv4PF9KBWNTGdZ1fLjpEifUI3Aax23TdQqkHs+4+T8zOK2v4MsDgit4nqJheV2I+cXuumPlCONndfr43KxPsGJqAtb8yzkMA20/r8fnnOMbfblDnsAOTGWjC+ond2Eph5AlY2tW+s9JiFBHVawalheqYBVmKlNT3vqVp5IKrnJrIVagN59FKqSOAYTFc/7eR61npGtf0+Ftew137FICGp7F6v4JxjqNuSkxsXsH6+2Z071A3X ltyeamin@gmail.com</span><br></pre></td></tr></table></figure>
+<li><p>上传成功后，查看远程主机~/.ssh/authorized_keys文件的内容，其中内容包含要远程主机的公钥则说吗配置完成。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">litong@LT:~/.ssh$ cat id_rsa.pub  <span class="comment"># 192.168.5.1机器公钥</span></span><br><span class="line">   ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDEeCQP2arzLybGinLvKEgN6cJtINUhDL8uLIwaCJdsv7FbYrBK9R2I01F+pftjiiILCrg0GgwSThAJ7cCxbmriw+D1ZoZdC+MJPONiv4PF9KBWNTGdZ1fLjpEifUI3Aax23TdQqkHs+4+T8zOK2v4MsDgit4nqJheV2I+cXuumPlCONndfr43KxPsGJqAtb8yzkMA20/r8fnnOMbfblDnsAOTGWjC+ond2Eph5AlY2tW+s9JiFBHVawalheqYBVmKlNT3vqVp5IKrnJrIVagN59FKqSOAYTFc/7eR61npGtf0+Ftew137FICGp7F6v4JxjqNuSkxsXsH6+2Z071A3X ltyeamin@gmail.com</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
+   <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@localhost .ssh]<span class="comment"># cat authorized_keys # 192.168.5.100远程机器免密登录公钥</span></span><br><span class="line">   ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDEeCQP2arzLybGinLvKEgN6cJtINUhDL8uLIwaCJdsv7FbYrBK9R2I01F+pftjiiILCrg0GgwSThAJ7cCxbmriw+D1ZoZdC+MJPONiv4PF9KBWNTGdZ1fLjpEifUI3Aax23TdQqkHs+4+T8zOK2v4MsDgit4nqJheV2I+cXuumPlCONndfr43KxPsGJqAtb8yzkMA20/r8fnnOMbfblDnsAOTGWjC+ond2Eph5AlY2tW+s9JiFBHVawalheqYBVmKlNT3vqVp5IKrnJrIVagN59FKqSOAYTFc/7eR61npGtf0+Ftew137FICGp7F6v4JxjqNuSkxsXsH6+2Z071A3X ltyeamin@gmail.com</span><br></pre></td></tr></table></figure>
 <ol start="4">
 <li><p>尝试免密登录。</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">litong@LT:~/.ssh$ ssh root@192.168.5.100</span><br><span class="line">Last login: Sat Nov 23 19:07:01 2019 from 192.168.5.1</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>  日常工作中，免密登录用处特别多，项目部署的时候上传时候需要免密登录，不可能将密码原文设置到配置文件中，这样特别不安全。</p>
+<h1 id="3-总结"><a href="#3-总结" class="headerlink" title="3. 总结"></a>3. 总结</h1><p>  日常工作中，免密登录用处特别多，项目部署的时候上传时候需要免密登录，不可能将密码原文设置到配置文件中，这样特别不安全。</p>
     </div>
     
         <div class="reward" ontouchstart="">
@@ -329,7 +329,7 @@
     <div class="widget">
         <h3 class="title">文章目录</h3>
         
-            <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#账号密码登录"><span class="toc-text">账号密码登录</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#公钥免密登录"><span class="toc-text">公钥免密登录</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#192-168-5-1机器公钥"><span class="toc-text">192.168.5.1机器公钥</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#192-168-5-100远程机器免密登录公钥"><span class="toc-text">192.168.5.100远程机器免密登录公钥</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a></li></ol>
+            <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-账号密码登录"><span class="toc-text">1. 账号密码登录</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-公钥免密登录"><span class="toc-text">2. 公钥免密登录</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-总结"><span class="toc-text">3. 总结</span></a></li></ol>
         
     </div>
 </aside>
