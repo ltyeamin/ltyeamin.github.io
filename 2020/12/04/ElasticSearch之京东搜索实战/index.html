@@ -22,7 +22,7 @@
 
 
     <meta name="description" content="1. 前言​       最近学习了有关分布式搜索中间件ElasticSearch(简称ES)相关知识，为了加强对ES基础知识的巩固，我耗时多日重新设计了一套京东商品搜索的小案例。
-​     ...">
+项目的整体架...">
 
 
 
@@ -193,8 +193,7 @@
     
     <div class="post-body post-content">
         <h1 id="1-前言"><a href="#1-前言" class="headerlink" title="1. 前言"></a>1. 前言</h1><p>​       最近学习了有关分布式搜索中间件<strong><a href="https://www.elastic.co/cn/elasticsearch/" target="_blank" rel="noopener">ElasticSearch</a>(简称ES)</strong>相关知识，为了加强对ES基础知识的巩固，我耗时多日重新设计了一套京东商品搜索的小案例。</p>
-<p>​     此案例参考了B站Up主<a href="https://www.bilibili.com/video/BV17a4y1x7zq?t=34&amp;p=16" target="_blank" rel="noopener">遇见狂神说</a>的京东搜索案例。项目的整体架构前后端分离，前端采用Vue.js作为开发框架，后端用Spring Boot + ElasticSearch来完成搜索商品的API。</p>
-<p>​     在此次开发过程中，我将基于原案例进行如下修改：</p>
+<p>项目的整体架构前后端分离，前端采用Vue.js作为开发框架，后端用Spring Boot + ElasticSearch来完成搜索商品的API。在此次开发过程中，我将开发如下功能：</p>
 <ol>
 <li>前后端彻底的分离，前端采用Vue开发，后端采用Spring Boot 和ElasticSearch开发</li>
 <li>京东商品数据的爬取采用Python的requests库和PyQuery库开发，并且翻页爬取全量数据</li>
@@ -359,11 +358,10 @@
 <li><a href="https://gitee.com/ltalex/es-jd-search" target="_blank" rel="noopener">码云</a></li>
 </ul>
 <h1 id="8-参考资料"><a href="#8-参考资料" class="headerlink" title="8. 参考资料"></a>8. 参考资料</h1><ul>
-<li><a href="https://www.bilibili.com/video/BV17a4y1x7zq?t=1402" target="_blank" rel="noopener">【狂神说Java】ElasticSearch7.6.x最新完整教程</a></li>
 <li><a href="https://www.elastic.co/cn/elasticsearch/" target="_blank" rel="noopener">ElasticSearch官网</a></li>
 <li><a href="https://github.com/medcl/elasticsearch-analysis-ik" target="_blank" rel="noopener">IK中文分词器</a></li>
 <li><a href="https://cn.vuejs.org/" target="_blank" rel="noopener">Vue官网</a></li>
-<li><a href="https://element.eleme.cn/#/zh-CN/component/installation" target="_blank" rel="noopener">Elment-UI组件</a></li>
+<li><a href="https://element.eleme.cn/#/zh-CN/component/installation" target="_blank" rel="noopener">Element-UI组件</a></li>
 </ul>
     </div>
     
